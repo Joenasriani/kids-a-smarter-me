@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The Crown of Greatness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(-45deg, #2e1a47, #1a1a2e, #0f3057, #4b0082);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
+            color: white;
+            height: 100vh;
+            height: -webkit-fill-available;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .cinzel { font-family: 'Cinzel', serif; }
+
+        .gold-border {
+            border: 4px solid #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4), inset 0 0 15px rgba(255, 215, 0, 0.2);
+        }
+
+        .rainbow-text {
+            background: linear-gradient(to right, #ef5350, #f48fb1, #7e57c2, #2196f3, #26c6da, #43a047, #eeff41, #f9a825, #ff5722);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow 5s linear infinite;
+            background-size: 200% auto;
+        }
+
+        @keyframes rainbow {
+            to { background-position: 200% center; }
+        }
+
+        .choice-btn-a { background: linear-gradient(135deg, #00b09b, #96c93d); }
+        .choice-btn-b { background: linear-gradient(135deg, #8e2de2, #4a00e0); }
+
+        .choice-btn {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .choice-btn:active {
+            transform: scale(0.95);
+        }
+
+        @media (min-width: 1024px) {
+            .choice-btn:hover {
+                transform: scale(1.05) rotate(1deg);
+                filter: brightness(1.2);
+                box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .lion-container {
+            animation: bounce 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0) scale(1); }
+            to { transform: translateY(-15px) scale(1.02); }
+        }
+
+        .screen {
+            display: none;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .content-wrap {
+            width: 100%;
+            max-width: 900px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @media (max-height: 600px) {
+            .lion-container { margin-bottom: 1rem; }
+            h1 { font-size: 2.5rem !important; }
+            .choice-btn { padding: 1rem !important; }
+            .choice-btn div { font-size: 3rem !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <div id="start-screen" class="screen active">
+        <div class="content-wrap">
+            <div class="mb-6 lion-container">
+                <svg class="w-24 h-24 md:w-40 md:h-40" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="rgba(255, 215, 0, 0.2)" stroke="#ffd700" stroke-width="2" />
+                    <path d="M50 15L58 38H82L63 52L70 75L50 60L30 75L37 52L18 38H42L50 15Z" fill="#FFD700" />
+                </svg>
+            </div>
+            <h1 class="cinzel text-4xl sm:text-6xl md:text-8xl mb-4 rainbow-text uppercase font-black px-2 text-center leading-tight">Crown of Greatness</h1>
+            <p class="text-lg sm:text-2xl md:text-3xl mb-10 text-cyan-200 font-bold tracking-wide uppercase px-4">Discover your unique heart!</p>
+            <button onclick="startGame()" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-10 py-4 sm:px-16 sm:py-6 rounded-full text-xl sm:text-3xl cinzel uppercase font-black text-white shadow-2xl active:scale-90 transition-transform">Start Quest</button>
+        </div>
+    </div>
+
+    <div id="question-screen" class="screen">
+        <div class="content-wrap">
+            <div id="progress-bar" class="w-full h-3 bg-white/10 rounded-full mb-8 overflow-hidden max-w-md">
+                <div id="progress-inner" class="h-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-500" style="width: 0%"></div>
+            </div>
+            <h2 id="question-text" class="cinzel text-2xl sm:text-4xl md:text-5xl mb-8 md:mb-16 leading-tight text-white drop-shadow-lg font-bold">What would you do?</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-10 w-full">
+                <button onclick="handleChoice('A')" class="choice-btn choice-btn-a gold-border p-6 sm:p-10 rounded-2xl sm:rounded-[3rem] flex flex-col items-center justify-center space-y-4 min-h-[160px]">
+                    <div id="option-a-icon" class="text-6xl sm:text-8xl drop-shadow-md">🌉</div>
+                    <span id="option-a-text" class="text-lg sm:text-2xl md:text-3xl font-black uppercase text-white leading-tight">Bridge Builder</span>
+                </button>
+                
+                <button onclick="handleChoice('B')" class="choice-btn choice-btn-b gold-border p-6 sm:p-10 rounded-2xl sm:rounded-[3rem] flex flex-col items-center justify-center space-y-4 min-h-[160px]">
+                    <div id="option-b-icon" class="text-6xl sm:text-8xl drop-shadow-md">🗼</div>
+                    <span id="option-b-text" class="text-lg sm:text-2xl md:text-3xl font-black uppercase text-white leading-tight">Solo Climber</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="result-screen" class="screen">
+        <div class="content-wrap">
+            <h1 id="result-title" class="cinzel text-3xl sm:text-5xl md:text-7xl mb-4 rainbow-text font-black uppercase px-2 text-center leading-tight">AWESOME WORK!</h1>
+            
+            <div class="lion-container my-4 sm:my-8 relative">
+                <svg id="result-svg" class="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80" viewBox="0 0 200 200">
+                    <circle cx="100" cy="100" r="80" fill="url(#auraGrad)" opacity="0.6" />
+                    <defs>
+                        <radialGradient id="auraGrad">
+                            <stop offset="0%" stop-color="#ffd700" />
+                            <stop offset="100%" stop-color="transparent" />
+                        </radialGradient>
+                    </defs>
+                    <path id="svg-cape" d="M30 70 Q100 20 170 70 L190 190 Q100 160 10 190 Z" fill="#e91e63" />
+                    <circle id="svg-mane" cx="100" cy="100" r="65" fill="#ff9800" />
+                    <circle id="svg-mane-inner" cx="100" cy="100" r="55" fill="#ffeb3b" />
+                    <ellipse cx="100" cy="110" rx="45" ry="50" fill="#ffe0b2" />
+                    <circle cx="82" cy="100" r="7" fill="#1a1a2e" />
+                    <circle cx="118" cy="100" r="7" fill="#1a1a2e" />
+                    <circle cx="84" cy="98" r="2" fill="white" />
+                    <circle cx="120" cy="98" r="2" fill="white" />
+                    <path d="M92 120 L108 120 L100 128 Z" fill="#5d4037" />
+                    
+                    <g id="accessory-group">
+                        <path id="svg-hat" d="M60 60 L75 30 L100 50 L125 30 L140 60 Z" fill="#ffd700" stroke="#ff8f00" stroke-width="3"/>
+                        <circle id="dot-1" cx="60" cy="60" r="5" fill="#f44336" />
+                        <circle id="dot-2" cx="100" cy="50" r="5" fill="#2196f3" />
+                        <circle id="dot-3" cx="140" cy="60" r="5" fill="#4caf50" />
+                    </g>
+                </svg>
+            </div>
+
+            <div class="max-w-xl mx-auto px-4">
+                <p id="result-text" class="text-lg sm:text-2xl md:text-3xl mb-8 text-yellow-200 font-bold leading-relaxed text-center">
+                    You are a hero in your own special way!
+                </p>
+                <button onclick="resetGame()" class="text-white bg-white/20 px-8 py-3 rounded-full cinzel text-lg sm:text-xl hover:bg-white/40 active:scale-95 transition-all uppercase tracking-widest font-bold">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const adventureBank = [
+            { q: "A giant chocolate river blocks the way! What do you do?", a: { text: "Build a candy bridge for everyone", icon: "🌈" }, b: { text: "Fly over it in a solo balloon", icon: "🎈" } },
+            { q: "You find a bag of magical glowing seeds!", a: { text: "Plant a forest for the whole town", icon: "🌸" }, b: { text: "Grow a secret tree just for you", icon: "💡" } },
+            { q: "The sky turns grey! How do you help?", a: { text: "Lead a parade to bring back the sun", icon: "🎺" }, b: { text: "Paint a bright picture in your room", icon: "🎨" } },
+            { q: "A friendly dragon is feeling lonely!", a: { text: "Invite the whole village to play", icon: "🐉" }, b: { text: "Give him a toy and go home", icon: "🧸" } },
+            { q: "The library books are all mixed up!", a: { text: "Organize a team cleanup party", icon: "📚" }, b: { text: "Find one book and read quietly", icon: "🕯️" } },
+            { q: "A golden bird is stuck in a high tree!", a: { text: "Ask friends to help hold a net", icon: "🦜" }, b: { text: "Try to climb the tall tree alone", icon: "🧗" } },
+            { q: "The kingdom feast needs more food!", a: { text: "Cook a giant soup for everyone", icon: "🥣" }, b: { text: "Bake a small cake for yourself", icon: "🧁" } },
+            { q: "A shooting star lands in the forest!", a: { text: "Wish for happiness for everyone", icon: "⭐" }, b: { text: "Wish for a chest of hidden gold", icon: "💰" } },
+            { q: "You find a box of colorful costumes!", a: { text: "Put on a show for your family", icon: "🎭" }, b: { text: "Dress up like a secret ninja", icon: "🥷" } },
+            { q: "The royal garden is thirsty!", a: { text: "Ask your friends to bring buckets", icon: "💧" }, b: { text: "Use your magic wand to make rain", icon: "🪄" } },
+            { q: "A baby unicorn is lost in the mist!", a: { text: "Sing a song to help it find the way", icon: "🎶" }, b: { text: "Follow its tracks very carefully", icon: "🐾" } },
+            { q: "You discover a map to a hidden castle!", a: { text: "Bring a team of brave explorers", icon: "🗺️" }, b: { text: "Sneak inside to find the treasure", icon: "💎" } }
+        ];
+
+        let activeQuestions = [];
+        let currentQuestion = 0;
+        let scoreA = 0;
+
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        }
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = (Math.random() - 0.5) * 1.5;
+                this.speedY = (Math.random() - 0.5) * 1.5;
+                this.opacity = Math.random();
+                const colors = ['#FFD700', '#FF1493', '#00BFFF', '#ADFF2F', '#FF8C00', '#FFFFFF'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.opacity * 0.4;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = window.innerWidth < 768 ? 50 : 120;
+            for (let i = 0; i < count; i++) particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        animate();
+
+        function startGame() {
+            activeQuestions = [...adventureBank]
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 5);
+            currentQuestion = 0;
+            scoreA = 0;
+            showScreen('question-screen');
+            loadQuestion();
+        }
+
+        function showScreen(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            const target = document.getElementById(id);
+            target.classList.add('active');
+            target.scrollTop = 0;
+        }
+
+        function loadQuestion() {
+            const data = activeQuestions[currentQuestion];
+            document.getElementById('question-text').innerText = data.q;
+            document.getElementById('option-a-text').innerText = data.a.text;
+            document.getElementById('option-a-icon').innerText = data.a.icon;
+            document.getElementById('option-b-text').innerText = data.b.text;
+            document.getElementById('option-b-icon').innerText = data.b.icon;
+            document.getElementById('progress-inner').style.width = `${(currentQuestion / activeQuestions.length) * 100}%`;
+        }
+
+        function handleChoice(choice) {
+            if (choice === 'A') scoreA++;
+            createExplosion();
+            currentQuestion++;
+            if (currentQuestion < activeQuestions.length) {
+                setTimeout(loadQuestion, 200);
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            showScreen('result-screen');
+            launchConfetti();
+            const resultTitle = document.getElementById('result-title');
+            const resultText = document.getElementById('result-text');
+            const hat = document.getElementById('svg-hat');
+            const dots = [document.getElementById('dot-1'), document.getElementById('dot-2'), document.getElementById('dot-3')];
+            const cape = document.getElementById('svg-cape');
+            const mane = document.getElementById('svg-mane');
+            const maneInner = document.getElementById('svg-mane-inner');
+
+            if (scoreA >= 3) {
+                // Lion Heart Leader Styles
+                resultTitle.innerText = "LION HEART LEADER!";
+                resultText.innerText = "You are a Kindhearted Hero! You love bringing people together and making the kingdom shine with happiness and sharing.";
+                hat.setAttribute('d', 'M60 60 L75 30 L100 50 L125 30 L140 60 Z');
+                hat.setAttribute('fill', '#ffd700');
+                dots.forEach(d => d.style.display = 'block');
+                cape.setAttribute('fill', '#e91e63');
+                mane.setAttribute('fill', '#ff9800');
+                maneInner.setAttribute('fill', '#ffeb3b');
+            } else {
+                // Brave Explorer Styles
+                resultTitle.innerText = "BRAVE EXPLORER!";
+                resultText.innerText = "You are a Brilliant Adventurer! You lead the way with your smart ideas and bold heart. Every discovery you make is magical!";
+                // Pith helmet / Explorer hat path
+                hat.setAttribute('d', 'M50 65 L60 55 Q100 35 140 55 L150 65 Q100 75 50 65');
+                hat.setAttribute('fill', '#d7c49e');
+                hat.setAttribute('stroke', '#8d7b5b');
+                dots.forEach(d => d.style.display = 'none');
+                cape.setAttribute('fill', '#2196f3');
+                mane.setAttribute('fill', '#795548');
+                maneInner.setAttribute('fill', '#a1887f');
+            }
+        }
+
+        function resetGame() { showScreen('start-screen'); }
+
+        function createExplosion() {
+            const colors = ['#FFD700', '#FF1493', '#00BFFF', '#ADFF2F'];
+            for (let i = 0; i < 25; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = '50%';
+                p.style.top = '50%';
+                p.style.width = '12px';
+                p.style.height = '12px';
+                p.style.background = colors[Math.floor(Math.random() * colors.length)];
+                p.style.boxShadow = '0 0 10px white';
+                const angle = Math.random() * Math.PI * 2;
+                const dist = Math.random() * 180 + 40;
+                const tx = Math.cos(angle) * dist;
+                const ty = Math.sin(angle) * dist;
+                p.animate([{ transform: 'translate(0, 0) scale(1.5)', opacity: 1 }, { transform: `translate(${tx}px, ${ty}px) scale(0)`, opacity: 0 }], { duration: 600, easing: 'ease-out' }).onfinish = () => p.remove();
+                document.body.appendChild(p);
+            }
+        }
+
+        function launchConfetti() {
+            const colors = ['#FFD700', '#FF1493', '#00BFFF', '#ADFF2F', '#FF4500', '#7B68EE'];
+            const interval = setInterval(() => {
+                if (!document.getElementById('result-screen').classList.contains('active')) {
+                    clearInterval(interval);
+                    return;
+                }
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.top = '110vh';
+                p.style.width = Math.random() * 12 + 6 + 'px';
+                p.style.height = p.style.width;
+                p.style.background = colors[Math.floor(Math.random() * colors.length)];
+                const duration = Math.random() * 1500 + 2000;
+                p.animate([{ transform: `translateY(0) rotate(0deg)`, opacity: 1 }, { transform: `translateY(-120vh) rotate(360deg)`, opacity: 0 }], { duration: duration, easing: 'linear' }).onfinish = () => p.remove();
+                document.body.appendChild(p);
+            }, 50);
+        }
+    </script>
+</body>
+</html>
+
+
