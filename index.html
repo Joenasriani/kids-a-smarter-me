@@ -67,7 +67,7 @@
 
         .lion-container {
             animation: bounce 3s infinite alternate ease-in-out;
-            max-height: 35vh;
+            max-height: 28vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -113,10 +113,9 @@
             margin: auto;
         }
 
-        .fullscreen-btn {
+        .ui-btn {
             position: fixed;
             top: 1.5rem;
-            right: 1.5rem;
             z-index: 100;
             background: rgba(255, 215, 0, 0.15);
             border: 2px solid rgb(255, 215, 0);
@@ -125,34 +124,43 @@
             display: flex; align-items: center; justify-content: center;
             color: rgb(255, 215, 0);
             cursor: pointer;
+            transition: transform 0.2s;
         }
 
-        .conclusion-small {
+        .ui-btn:active { transform: scale(0.9); }
+        .home-btn { left: 1.5rem; display: none; }
+        .fullscreen-btn { right: 1.5rem; }
+
+        .conclusion-prefix {
             font-family: 'Quicksand', sans-serif;
             font-size: 0.35em;
             display: block;
-            margin-bottom: 2.5vh; /* Increased leading for better separation */
+            margin-bottom: 2.5vh;
             opacity: 1;
             -webkit-text-fill-color: white;
             text-transform: none;
+            font-weight: 700;
         }
 
+        h1 { font-size: clamp(4rem, 16vh, 18rem); }
+        h2 { font-size: clamp(2rem, 7vh, 6rem); }
+        p { font-size: clamp(1.2rem, 4vh, 3.5rem); }
+
         @media (min-width: 1900px) {
-            h1 { font-size: 9rem !important; }
-            h2 { font-size: 5rem !important; }
-            p { font-size: 3rem !important; }
+            h1 { font-size: clamp(6rem, 20vh, 22rem) !important; }
             .choice-btn { min-height: 400px !important; }
             .content-wrap { max-width: 1600px; max-height: 1200px; }
         }
 
         @media (max-height: 600px) and (orientation: landscape) {
             .content-wrap { flex-direction: row; gap: 2rem; flex-wrap: wrap; }
-            .lion-container { width: 25%; }
-            .start-text-group { width: 65%; }
-            h1 { font-size: 2.5rem !important; }
+            .lion-container { width: 18%; }
+            .start-text-group { width: 75%; }
+            h1 { font-size: clamp(3rem, 14vh, 7rem) !important; }
             .choice-btn { min-height: 100px !important; flex-direction: row !important; }
             .grid { grid-template-columns: repeat(2, 1fr) !important; width: 100%; }
             .question-header { width: 100%; }
+            .advice-scroll { max-height: 25vh; overflow-y: auto; }
         }
 
         .particle {
@@ -160,14 +168,32 @@
             border-radius: 50%;
             pointer-events: none;
         }
+
+        .advice-list {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .advice-item {
+            font-size: clamp(0.9rem, 2.5vh, 2rem);
+        }
     </style>
 </head>
 <body>
 
     <canvas id="bg-canvas" class="bg-canvas-layer"></canvas>
 
-    <button id="fs-btn" class="fullscreen-btn" title="Full Screen">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <button id="home-btn" class="ui-btn home-btn" title="Go to Intro">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+    </button>
+
+    <button id="fs-btn" class="ui-btn fullscreen-btn" title="Full Screen">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
         </svg>
     </button>
@@ -181,7 +207,7 @@
                 </svg>
             </div>
             <div class="start-text-group space-y-6">
-                <h1 class="cinzel text-5xl sm:text-7xl md:text-8xl shiny-gold-text uppercase font-black leading-tight">A SMARTER ME!</h1>
+                <h1 class="cinzel shiny-gold-text uppercase font-black leading-none">A SMARTER ME!</h1>
                 <p class="text-xl sm:text-2xl text-cyan-200 font-bold uppercase tracking-widest">Find your special heart!</p>
                 <button id="start-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-12 py-5 sm:px-24 sm:py-8 rounded-full text-2xl sm:text-4xl cinzel uppercase font-black text-white shadow-2xl transition-transform active:scale-90 hover:brightness-110">Play Game</button>
             </div>
@@ -194,7 +220,7 @@
                 <div id="progress-bar" class="w-full h-5 bg-white/10 rounded-full overflow-hidden border border-white/5">
                     <div id="progress-inner" class="h-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-500" style="width: 0%"></div>
                 </div>
-                <h2 id="question-text" class="cinzel text-3xl sm:text-5xl md:text-6xl text-white font-bold">What do you pick?</h2>
+                <h2 id="question-text" class="cinzel text-white font-bold">What do you pick?</h2>
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full">
@@ -212,7 +238,7 @@
 
     <div id="result-screen" class="screen">
         <div class="content-wrap">
-            <h1 id="result-title" class="cinzel text-5xl sm:text-7xl md:text-9xl shiny-gold-text font-black uppercase text-center leading-tight"></h1>
+            <h1 id="result-title" class="cinzel shiny-gold-text uppercase font-black text-center leading-none"></h1>
             <div class="lion-container">
                 <svg id="result-svg" class="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80" viewBox="0 0 200 200">
                     <circle cx="100" cy="100" r="80" fill="url(#auraGrad)" opacity="0.6" />
@@ -234,9 +260,9 @@
                     </g>
                 </svg>
             </div>
-            <div class="space-y-4 max-w-4xl text-center">
-                <p id="result-advice" class="text-base sm:text-lg md:text-xl text-cyan-200 font-medium px-6 italic opacity-90"></p>
-                <button id="replay-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-12 py-5 sm:px-24 sm:py-8 rounded-full cinzel text-xl sm:text-2xl font-black uppercase text-white shadow-2xl transition-transform active:scale-95 hover:brightness-110">Play Again</button>
+            <div class="space-y-4 max-w-4xl text-center advice-scroll">
+                <div id="result-advice-container" class="advice-list text-cyan-200 font-medium px-6 italic opacity-90"></div>
+                <button id="replay-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border mt-4 px-12 py-5 sm:px-24 sm:py-6 rounded-full cinzel text-xl sm:text-2xl font-black uppercase text-white shadow-2xl transition-transform active:scale-95 hover:brightness-110">Play Again</button>
             </div>
         </div>
     </div>
@@ -247,27 +273,32 @@
                 { q: "You find some trash on the floor.", a: { text: "Pick it up", icon: "🗑️", advice: "Helping keep our home clean is a super choice!" }, b: { text: "Leave it there", icon: "🚶", advice: "Try to pick up one thing next time to help out!" } },
                 { q: "A friend is feeling sad.", a: { text: "Say kind words", icon: "❤️", advice: "Your kind words make everyone feel happy!" }, b: { text: "Walk away", icon: "👣", advice: "Even a small smile can help a friend feel better!" } },
                 { q: "You finish playing with toys.", a: { text: "Clean them up", icon: "🧸", advice: "Cleaning up toys is what smart helpers do!" }, b: { text: "Make a mess", icon: "🌪️", advice: "Putting toys back helps you find them next time!" } },
-                { q: "You have a yummy snack.", a: { text: "Share with others", icon: "🍪", advice: "Sharing snacks is the best way to have fun!" }, b: { text: "Eat it all alone", icon: "🙊", advice: "Sharing makes everyone have more fun next time!" } },
+                { q: "You have a yummy snack.", a: { text: "Share with others", icon: "🍪", advice: "Sharing snacks is the best way to have fun!" }, b: { text: "Eat it all alone", icon: "🙊", advice: "Sharing snacks makes everyone have more fun next time!" } },
                 { q: "You feel very angry.", a: { text: "Take deep breaths", icon: "🌬️", advice: "Deep breaths help you stay calm and wise!" }, b: { text: "Scream and shout", icon: "📢", advice: "If you feel mad, try counting to five next time!" } },
                 { q: "Someone needs help reaching a toy.", a: { text: "Help them out", icon: "🤝", advice: "Helping others reach their goals is great!" }, b: { text: "Keep it for yourself", icon: "🤚", advice: "Being a helper feels better than playing alone!" } },
                 { q: "You see a thirsty plant.", a: { text: "Give it water", icon: "💧", advice: "Caring for nature shows you are very thoughtful!" }, b: { text: "Pull its leaves", icon: "🥀", advice: "Next time, try to be soft and gentle with plants!" } },
-                { q: "You make a little mistake.", a: { text: "Say sorry", icon: "🙏", advice: "Being honest shows how brave you are!" }, b: { text: "Blame a friend", icon: "👉", advice: "It's okay to make mistakes; just try to tell the truth!" } }
+                { q: "You make a little mistake.", a: { text: "Say sorry", icon: "🙏", advice: "Being honest shows how brave you are!" }, b: { text: "Blame a friend", icon: "👉", advice: "It's okay to make mistakes; just try to tell the truth!" } },
+                { q: "Time for bed but teeth are dirty.", a: { text: "Brush them now", icon: "🪥", advice: "Strong teeth help you chew yummy food!" }, b: { text: "Skip it", icon: "😴", advice: "Brush twice a day to keep your smile bright!" } },
+                { q: "You are ready for lunch.", a: { text: "Wash hands well", icon: "🧼", advice: "Washing hands keeps the tiny germs away!" }, b: { text: "Eat right away", icon: "🍔", advice: "Wash your hands before eating to stay healthy!" } },
+                { q: "You are near a busy road.", a: { text: "Hold a hand", icon: "🤝", advice: "Holding hands keeps you safe near cars!" }, b: { text: "Run across", icon: "🚀", advice: "Always hold an adult's hand when crossing the road!" } },
+                { q: "You get into the car.", a: { text: "Click seatbelt", icon: "🔒", advice: "Buckling up is what smart travelers do!" }, b: { text: "Leave it off", icon: "🚗", advice: "Always wear your seatbelt to be safe in the car!" } },
+                { q: "The stove looks very hot.", a: { text: "Stay away", icon: "🙅", advice: "Staying away from heat keeps your skin safe!" }, b: { text: "Touch it", icon: "🔥", advice: "Never touch the stove; it can be very hot!" } },
+                { q: "You want a toy someone has.", a: { text: "Say Please", icon: "😇", advice: "Kind words make people happy to help you!" }, b: { text: "Just grab it", icon: "😤", advice: "Using polite words shows you are a kind leader!" } },
+                { q: "A friend is on the slide.", a: { text: "Wait your turn", icon: "🧍", advice: "Waiting for your turn is fair and friendly!" }, b: { text: "Push in front", icon: "🏎️", advice: "Taking turns makes playing more fun for everyone!" } },
+                { q: "A friend falls down.", a: { text: "Ask if okay", icon: "🫂", advice: "Helping a friend shows you have a big heart!" }, b: { text: "Laugh at them", icon: "🤭", advice: "Be kind when others fall; they might be hurt!" } },
+                { q: "Your shirt is dirty.", a: { text: "Put in basket", icon: "🧺", advice: "Putting clothes away helps keep your room tidy!" }, b: { text: "Drop on floor", icon: "👕", advice: "Try to put your dirty clothes in the basket!" } },
+                { q: "Dad is carrying big bags.", a: { text: "Help a little", icon: "💪", advice: "Helping your family makes you a super helper!" }, b: { text: "Say I'm tired", icon: "😴", advice: "Even carrying one small bag is a big help!" } },
+                { q: "You are brushing teeth.", a: { text: "Turn off water", icon: "🚱", advice: "Saving water helps the whole planet stay happy!" }, b: { text: "Let it run", icon: "💧", advice: "Turn off the tap while brushing to save water!" } },
+                { q: "You feel a big sneeze coming.", a: { text: "Use a tissue", icon: "🤧", advice: "Using a tissue keeps your friends healthy!" }, b: { text: "Sneeze on hand", icon: "🌬️", advice: "Sneeze into your elbow to stop germs from spreading!" } }
             ];
 
             const resultCategories = {
-                high: {
-                    titles: ["A HELPFUL LEADER!", "A KIND FRIEND!", "A CARING HERO!", "A GENEROUS HELPER!", "A WISE TEAMMATE!", "A THOUGHTFUL SCOUT!", "A BRAVE LEADER!"],
-                },
-                medium: {
-                    titles: ["A BRAVE LEARNER!", "A SMART SCOUT!", "A GROWING HELPER!", "A GOOD FRIEND!", "A WISE THINKER!", "A KIND SCOUT!"],
-                },
-                low: {
-                    titles: ["A NEW EXPLORER!", "A BRAVE BEGINNER!", "A FUTURE SCOUT!", "A GROWING SCOUT!", "A YOUNG LEARNER!"],
-                }
+                high: ["A HELPFUL LEADER!", "A KIND FRIEND!", "A THOUGHTFUL HERO!", "A CARING TEAMMATE!", "A GENEROUS PARTNER!", "A WISE ROLE MODEL!"],
+                medium: ["A BRAVE TRYER!", "A STEADY HELPER!", "A GOOD STUDENT!", "A GROWING FRIEND!"]
             };
 
             let activeQuestions = [], currentQuestion = 0, scoreA = 0;
-            let userChoicesAdvice = [];
+            let growthAdviceList = [], positiveAdviceList = [];
             const canvas = document.getElementById('bg-canvas'), ctx = canvas.getContext('2d');
             let particles = [];
 
@@ -286,8 +317,7 @@
                     this.speedX = (Math.random() - 0.5) * 1.5;
                     this.speedY = (Math.random() - 0.5) * 1.5;
                     this.opacity = Math.random();
-                    const colors = ['#ffd700', '#daa520', '#fffacd', '#ffffff'];
-                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                    this.color = ['#ffd700', '#daa520', '#fffacd', '#ffffff'][Math.floor(Math.random() * 4)];
                 }
                 update() {
                     this.x += this.speedX; this.y += this.speedY;
@@ -314,29 +344,24 @@
             function showScreen(id) {
                 document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
                 document.getElementById(id).classList.add('active');
+                document.getElementById('home-btn').style.display = (id === 'start-screen') ? 'none' : 'flex';
             }
 
             function loadQuestion() {
                 const data = activeQuestions[currentQuestion];
                 document.getElementById('question-text').innerText = data.q;
-                
                 const isSwapped = Math.random() > 0.5;
-                const opt1 = isSwapped ? data.b : data.a;
-                const opt2 = isSwapped ? data.a : data.b;
-                const type1 = isSwapped ? 'B' : 'A';
-                const type2 = isSwapped ? 'A' : 'B';
-
-                const btnA = document.getElementById('btn-a');
-                const btnB = document.getElementById('btn-b');
+                const opt1 = isSwapped ? data.b : data.a, opt2 = isSwapped ? data.a : data.b;
+                const btnA = document.getElementById('btn-a'), btnB = document.getElementById('btn-b');
 
                 document.getElementById('option-a-text').innerText = opt1.text;
                 document.getElementById('option-a-icon').innerText = opt1.icon;
-                btnA.setAttribute('data-type', type1);
+                btnA.setAttribute('data-type', isSwapped ? 'B' : 'A');
                 btnA.setAttribute('data-advice', opt1.advice);
 
                 document.getElementById('option-b-text').innerText = opt2.text;
                 document.getElementById('option-b-icon').innerText = opt2.icon;
-                btnB.setAttribute('data-type', type2);
+                btnB.setAttribute('data-type', isSwapped ? 'A' : 'B');
                 btnB.setAttribute('data-advice', opt2.advice);
 
                 document.getElementById('progress-inner').style.width = `${(currentQuestion / activeQuestions.length) * 100}%`;
@@ -344,17 +369,16 @@
 
             function startGame() {
                 activeQuestions = [...adventureBank].sort(() => Math.random() - 0.5).slice(0, 5);
-                currentQuestion = 0; scoreA = 0; userChoicesAdvice = [];
+                currentQuestion = 0; scoreA = 0; growthAdviceList = []; positiveAdviceList = [];
                 showScreen('question-screen');
                 loadQuestion();
             }
 
             function handleChoice(elementId) {
                 const btn = document.getElementById(elementId);
-                const type = btn.getAttribute('data-type');
-                const advice = btn.getAttribute('data-advice');
-                if (type === 'A') scoreA++;
-                userChoicesAdvice.push(advice);
+                const type = btn.getAttribute('data-type'), advice = btn.getAttribute('data-advice');
+                if (type === 'A') { scoreA++; positiveAdviceList.push(advice); }
+                else growthAdviceList.push(advice);
                 createExplosion();
                 currentQuestion++;
                 if (currentQuestion < activeQuestions.length) setTimeout(loadQuestion, 200);
@@ -364,56 +388,63 @@
             function showResult() {
                 showScreen('result-screen');
                 const titleEl = document.getElementById('result-title');
-                const adviceEl = document.getElementById('result-advice');
-                const hat = document.getElementById('svg-hat');
-                const cape = document.getElementById('svg-cape');
+                const adviceContainer = document.getElementById('result-advice-container');
+                const hat = document.getElementById('svg-hat'), cape = document.getElementById('svg-cape');
                 const dots = [document.getElementById('dot-1'), document.getElementById('dot-2'), document.getElementById('dot-3')];
+                const wrongCount = growthAdviceList.length;
 
-                let cat = "";
-                if (scoreA >= 4) cat = "high";
-                else if (scoreA >= 2) cat = "medium";
-                else cat = "low";
-
-                const category = resultCategories[cat];
-                const randomIndex = Math.floor(Math.random() * category.titles.length);
-                
-                titleEl.innerHTML = '<span class="conclusion-small">You are</span>' + category.titles[randomIndex];
-
-                if (cat === "high") {
-                    hat.setAttribute('d', 'M60 60 L75 30 L100 50 L125 30 L140 60 Z');
-                    hat.setAttribute('fill', 'rgb(255,215,0)');
-                    dots.forEach(d => d.style.display = 'block');
-                    cape.setAttribute('fill', 'rgb(233, 30, 99)');
-                } else if (cat === "medium") {
-                    hat.setAttribute('d', 'M50 65 L60 55 Q100 35 140 55 L150 65 Q100 75 50 65');
-                    hat.setAttribute('fill', 'rgb(215, 196, 158)');
-                    dots.forEach(d => d.style.display = 'none');
-                    cape.setAttribute('fill', 'rgb(33, 150, 243)');
-                } else {
+                if (wrongCount >= 2) {
+                    titleEl.innerHTML = '<span class="conclusion-prefix">You must learn</span>THE FOLLOWING:';
                     hat.setAttribute('d', 'M50 65 L60 55 Q100 35 140 55 L150 65 Q100 75 50 65');
                     hat.setAttribute('fill', 'rgb(180, 180, 180)');
                     dots.forEach(d => d.style.display = 'none');
                     cape.setAttribute('fill', 'rgb(75, 0, 130)');
+                } else {
+                    let cat = (scoreA >= 4) ? "high" : "medium";
+                    const list = resultCategories[cat];
+                    titleEl.innerHTML = '<span class="conclusion-prefix">You are</span>' + list[Math.floor(Math.random() * list.length)];
+                    if (cat === "high") {
+                        hat.setAttribute('d', 'M60 60 L75 30 L100 50 L125 30 L140 60 Z');
+                        hat.setAttribute('fill', 'rgb(255,215,0)');
+                        dots.forEach(d => d.style.display = 'block');
+                        cape.setAttribute('fill', 'rgb(233, 30, 99)');
+                    } else {
+                        hat.setAttribute('d', 'M50 65 L60 55 Q100 35 140 55 L150 65 Q100 75 50 65');
+                        hat.setAttribute('fill', 'rgb(215, 196, 158)');
+                        dots.forEach(d => d.style.display = 'none');
+                        cape.setAttribute('fill', 'rgb(33, 150, 243)');
+                    }
                 }
 
-                let finalAdvice = "";
-                const badChoiceAdvices = userChoicesAdvice.filter(a => a.includes("Try") || a.includes("Next") || a.includes("If") || a.includes("smile") || a.includes("better") || a.includes("honesty"));
-                if (badChoiceAdvices.length > 0) finalAdvice = badChoiceAdvices[Math.floor(Math.random() * badChoiceAdvices.length)];
-                else finalAdvice = userChoicesAdvice[Math.floor(Math.random() * userChoicesAdvice.length)];
-                adviceEl.innerText = finalAdvice;
+                adviceContainer.innerHTML = '';
+                if (wrongCount > 0) {
+                    growthAdviceList.forEach(text => {
+                        const p = document.createElement('p');
+                        p.className = 'advice-item';
+                        p.textContent = text;
+                        adviceContainer.appendChild(p);
+                    });
+                } else {
+                    const p = document.createElement('p');
+                    p.className = 'advice-item';
+                    p.textContent = positiveAdviceList[Math.floor(Math.random() * positiveAdviceList.length)];
+                    adviceContainer.appendChild(p);
+                    const p2 = document.createElement('p');
+                    p2.className = 'advice-item';
+                    p2.textContent = "You made every single choice count today!";
+                    adviceContainer.appendChild(p2);
+                }
             }
 
             function createExplosion() {
-                const colors = ['#FFD700', '#DAA520', '#FFFFFF'];
-                for (let i = 0; i < 30; i++) {
+                for (let i = 0; i < 20; i++) {
                     const p = document.createElement('div');
                     p.className = 'particle';
                     p.style.left = '50%'; p.style.top = '50%';
-                    p.style.width = '14px'; p.style.height = '14px';
-                    p.style.background = colors[Math.floor(Math.random() * colors.length)];
-                    p.style.boxShadow = '0 0 15px white';
-                    const angle = Math.random() * Math.PI * 2, dist = Math.random() * 200 + 50;
-                    p.animate([{ transform: 'translate(0,0) scale(1.5)', opacity: 1 }, { transform: `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px) scale(0)`, opacity: 0 }], { duration: 600, easing: 'ease-out' }).onfinish = () => p.remove();
+                    p.style.width = '10px'; p.style.height = '10px';
+                    p.style.background = ['#FFD700', '#DAA520', '#FFFFFF'][Math.floor(Math.random()*3)];
+                    const angle = Math.random()*Math.PI*2, dist = Math.random()*150 + 50;
+                    p.animate([{transform:'translate(0,0)', opacity:1}, {transform:`translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px)`, opacity:0}], {duration:600}).onfinish = () => p.remove();
                     document.body.appendChild(p);
                 }
             }
@@ -422,15 +453,16 @@
             document.getElementById('btn-a').onclick = () => handleChoice('btn-a');
             document.getElementById('btn-b').onclick = () => handleChoice('btn-b');
             document.getElementById('replay-btn').onclick = () => showScreen('start-screen');
-            document.getElementById('fs-btn').onclick = function() {
-                if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
+            document.getElementById('home-btn').onclick = () => showScreen('start-screen');
+            document.getElementById('fs-btn').onclick = () => {
+                if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
                 else document.exitFullscreen();
             };
 
             window.addEventListener('resize', resize);
-            resize();
-            animate();
+            resize(); animate();
         };
     </script>
 </body>
 </html>
+
