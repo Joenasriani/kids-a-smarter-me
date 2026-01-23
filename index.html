@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>The Crown of Greatness</title>
+    <title>A SMARTER ME!</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -22,7 +22,6 @@
             overflow: hidden;
             color: white;
             height: 100vh;
-            height: -webkit-fill-available;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -37,24 +36,25 @@
         .cinzel { font-family: 'Cinzel', serif; }
 
         .gold-border {
-            border: clamp(2px, 0.5vw, 4px) solid rgb(255, 215, 0);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4), inset 0 0 15px rgba(255, 215, 0, 0.2);
+            border: clamp(2px, 0.4vw, 6px) solid rgb(255, 215, 0);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.3), inset 0 0 20px rgba(255, 215, 0, 0.1);
         }
 
-        .rainbow-text {
-            background: linear-gradient(to right, rgb(239, 83, 80), rgb(244, 143, 177), rgb(126, 87, 194), rgb(33, 150, 243), rgb(38, 198, 218), rgb(67, 160, 71), rgb(238, 255, 65), rgb(249, 168, 37), rgb(255, 87, 34));
+        .shiny-gold-text {
+            background: linear-gradient(to right, #ffd700, #fffacd, #ffd700, #daa520, #ffd700);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: rainbow 5s linear infinite;
             background-size: 200% auto;
+            animation: shimmer 3s linear infinite;
         }
 
-        @keyframes rainbow {
+        @keyframes shimmer {
             to { background-position: 200% center; }
         }
 
-        .choice-btn-a { background: linear-gradient(135deg, rgb(0, 176, 155), rgb(150, 201, 61)); }
-        .choice-btn-b { background: linear-gradient(135deg, rgb(142, 45, 226), rgb(74, 0, 224)); }
+        .choice-btn-unified { 
+            background: linear-gradient(135deg, rgb(74, 0, 224), rgb(142, 45, 226)); 
+        }
 
         .choice-btn {
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -64,32 +64,17 @@
 
         .choice-btn:active { transform: scale(0.95); }
 
-        @media (min-width: 1024px) {
-            .choice-btn:hover {
-                transform: scale(1.05) rotate(1deg);
-                filter: brightness(1.1);
-                box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
-            }
-        }
-
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
         .lion-container {
             animation: bounce 3s infinite alternate ease-in-out;
-            max-height: 30vh;
+            max-height: 35vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 1.5rem 0;
         }
 
         @keyframes bounce {
             from { transform: translateY(0) scale(1); }
-            to { transform: translateY(-15px) scale(1.03); }
+            to { transform: translateY(-20px) scale(1.04); }
         }
 
         .screen {
@@ -99,10 +84,13 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: calc(2rem + var(--safe-area-inset-top)) 2rem calc(2rem + var(--safe-area-inset-bottom));
+            padding: calc(1rem + var(--safe-area-inset-top)) 1rem calc(1rem + var(--safe-area-inset-bottom));
             text-align: center;
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         .screen.active { display: flex; }
@@ -119,48 +107,44 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 2.5rem;
+            justify-content: space-around;
+            padding: 2rem;
         }
 
         .fullscreen-btn {
             position: fixed;
-            top: calc(1.5rem + var(--safe-area-inset-top));
+            top: 1.5rem;
             right: 1.5rem;
-            z-index: 50;
-            background: rgba(255, 215, 0, 0.2);
+            z-index: 100;
+            background: rgba(255, 215, 0, 0.15);
             border: 2px solid rgb(255, 215, 0);
-            border-radius: 12px;
-            width: 48px; height: 48px;
+            border-radius: 14px;
+            width: 54px; height: 54px;
             display: flex; align-items: center; justify-content: center;
             color: rgb(255, 215, 0);
             cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
         }
 
-        @media (max-height: 500px) {
-            .content-wrap { gap: 1rem; }
-            .lion-container { margin: 0.5rem 0; }
-            .lion-container svg { height: 100px; width: 100px; }
-            h1 { font-size: 1.8rem !important; }
-            h2 { font-size: 1.3rem !important; }
-            p { font-size: 0.9rem !important; }
-            .choice-btn { min-height: 70px !important; padding: 0.4rem !important; flex-direction: row !important; gap: 0.8rem; }
-            .choice-btn div { font-size: 1.8rem !important; }
-            .choice-btn span { font-size: 0.9rem !important; }
+        @media (min-width: 1900px) {
+            h1 { font-size: 9rem !important; }
+            h2 { font-size: 5rem !important; }
+            p { font-size: 3rem !important; }
+            .choice-btn { min-height: 400px !important; }
         }
 
-        @media (min-width: 1024px) {
-            .content-wrap { gap: 4rem; }
-            .choice-btn { padding: 3rem !important; }
+        @media (max-height: 600px) and (orientation: landscape) {
+            .content-wrap { flex-direction: row; gap: 2rem; }
+            .lion-container { width: 30%; }
+            .start-text-group { width: 60%; }
+            h1 { font-size: 2.5rem !important; }
+            .choice-btn { min-height: 100px !important; flex-direction: row !important; }
+            .grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
 
-        @media (min-width: 1920px) {
-            .content-wrap { gap: 6rem; }
-            h1 { font-size: 7rem !important; }
-            h2 { font-size: 3.5rem !important; }
-            p { font-size: 2.5rem !important; }
-            .choice-btn { min-height: 350px !important; }
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -168,8 +152,8 @@
 
     <canvas id="bg-canvas" class="bg-canvas-layer"></canvas>
 
-    <button onclick="toggleFullScreen()" class="fullscreen-btn" title="Toggle Full Screen">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <button id="fs-btn" class="fullscreen-btn" title="Full Screen">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
         </svg>
     </button>
@@ -177,36 +161,36 @@
     <div id="start-screen" class="screen active">
         <div class="content-wrap">
             <div class="lion-container">
-                <svg class="w-28 h-28 sm:w-40 sm:h-40 md:w-56 md:h-56 lg:w-64 lg:h-64" viewBox="0 0 100 100">
+                <svg class="w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="45" fill="rgba(255, 215, 0, 0.2)" stroke="rgb(255, 215, 0)" stroke-width="2" />
                     <path d="M50 15L58 38H82L63 52L70 75L50 60L30 75L37 52L18 38H42L50 15Z" fill="rgb(255, 215, 0)" />
                 </svg>
             </div>
-            <div class="space-y-4 md:space-y-8">
-                <h1 class="cinzel text-5xl sm:text-7xl md:text-8xl lg:text-9xl rainbow-text uppercase font-black text-center leading-tight">Crown of Greatness</h1>
-                <p class="text-xl sm:text-3xl md:text-4xl text-cyan-200 font-bold uppercase tracking-widest px-4">Discover your unique heart!</p>
+            <div class="start-text-group space-y-6">
+                <h1 class="cinzel text-5xl sm:text-7xl md:text-8xl shiny-gold-text uppercase font-black leading-tight">A SMARTER ME!</h1>
+                <p class="text-xl sm:text-2xl text-cyan-200 font-bold uppercase tracking-widest">Find your special heart!</p>
+                <button id="start-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-12 py-5 sm:px-24 sm:py-8 rounded-full text-2xl sm:text-4xl cinzel uppercase font-black text-white shadow-2xl transition-transform active:scale-90">Play Game</button>
             </div>
-            <button onclick="startGame()" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-10 py-4 sm:px-20 sm:py-8 rounded-full text-2xl sm:text-4xl cinzel uppercase font-black text-white shadow-2xl transition-transform active:scale-90 hover:brightness-110">Start Quest</button>
         </div>
     </div>
 
     <div id="question-screen" class="screen">
         <div class="content-wrap">
-            <div class="w-full max-w-xl space-y-8">
-                <div id="progress-bar" class="w-full h-4 bg-white/10 rounded-full overflow-hidden">
+            <div class="w-full max-w-2xl space-y-8">
+                <div id="progress-bar" class="w-full h-5 bg-white/10 rounded-full overflow-hidden border border-white/5">
                     <div id="progress-inner" class="h-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-500" style="width: 0%"></div>
                 </div>
-                <h2 id="question-text" class="cinzel text-3xl sm:text-5xl md:text-6xl leading-tight text-white drop-shadow-xl font-bold">What would you do?</h2>
+                <h2 id="question-text" class="cinzel text-3xl sm:text-5xl md:text-6xl text-white font-bold">What do you pick?</h2>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12 lg:gap-16 w-full max-w-6xl">
-                <button onclick="handleChoice('A')" class="choice-btn choice-btn-a gold-border p-6 sm:p-12 rounded-3xl sm:rounded-[3rem] flex flex-col items-center justify-center space-y-6 min-h-[180px]">
-                    <div id="option-a-icon" class="text-6xl sm:text-8xl lg:text-9xl drop-shadow-lg">🌉</div>
-                    <span id="option-a-text" class="text-lg sm:text-2xl md:text-3xl font-black uppercase text-white leading-tight">Bridge Builder</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-6xl">
+                <button id="btn-a" class="choice-btn choice-btn-unified gold-border p-8 rounded-3xl flex flex-col items-center justify-center space-y-6 min-h-[180px]">
+                    <div id="option-a-icon" class="text-7xl sm:text-9xl">✨</div>
+                    <span id="option-a-text" class="text-xl sm:text-3xl font-black uppercase text-white">Action One</span>
                 </button>
-                <button onclick="handleChoice('B')" class="choice-btn choice-btn-b gold-border p-6 sm:p-12 rounded-3xl sm:rounded-[3rem] flex flex-col items-center justify-center space-y-6 min-h-[180px]">
-                    <div id="option-b-icon" class="text-6xl sm:text-8xl lg:text-9xl drop-shadow-lg">🗼</div>
-                    <span id="option-b-text" class="text-lg sm:text-2xl md:text-3xl font-black uppercase text-white leading-tight">Solo Climber</span>
+                <button id="btn-b" class="choice-btn choice-btn-unified gold-border p-8 rounded-3xl flex flex-col items-center justify-center space-y-6 min-h-[180px]">
+                    <div id="option-b-icon" class="text-7xl sm:text-9xl">🌟</div>
+                    <span id="option-b-text" class="text-xl sm:text-3xl font-black uppercase text-white">Action Two</span>
                 </button>
             </div>
         </div>
@@ -214,24 +198,19 @@
 
     <div id="result-screen" class="screen">
         <div class="content-wrap">
-            <h1 id="result-title" class="cinzel text-4xl sm:text-6xl md:text-8xl rainbow-text font-black uppercase leading-tight">AWESOME!</h1>
+            <h1 id="result-title" class="cinzel text-5xl sm:text-7xl md:text-9xl shiny-gold-text font-black uppercase text-center leading-tight">YOU ARE AMAZING!</h1>
             <div class="lion-container">
-                <svg id="result-svg" class="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96" viewBox="0 0 200 200">
+                <svg id="result-svg" class="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80" viewBox="0 0 200 200">
                     <circle cx="100" cy="100" r="80" fill="url(#auraGrad)" opacity="0.6" />
                     <defs>
-                        <radialGradient id="auraGrad">
-                            <stop offset="0%" stop-color="rgb(255, 215, 0)" />
-                            <stop offset="100%" stop-color="transparent" />
-                        </radialGradient>
+                        <radialGradient id="auraGrad"><stop offset="0%" stop-color="rgb(255, 215, 0)" /><stop offset="100%" stop-color="transparent" /></radialGradient>
                     </defs>
                     <path id="svg-cape" d="M30 70 Q100 20 170 70 L190 190 Q100 160 10 190 Z" fill="rgb(233, 30, 99)" />
-                    <circle id="svg-mane" cx="100" cy="100" r="65" fill="rgb(255, 152, 0)" />
-                    <circle id="svg-mane-inner" cx="100" cy="100" r="55" fill="rgb(255, 235, 59)" />
-                    <ellipse cx="100" cy="110" rx="45" ry="50" fill="rgb(255, 224, 178)" />
+                    <circle id="svg-mane" cx="100" cy="100" r="65" fill="#ff9800" />
+                    <circle id="svg-mane-inner" cx="100" cy="100" r="55" fill="#ffeb3b" />
+                    <ellipse cx="100" cy="110" rx="45" ry="50" fill="#ffe0b2" />
                     <circle cx="82" cy="100" r="7" fill="rgb(26, 26, 46)" />
                     <circle cx="118" cy="100" r="7" fill="rgb(26, 26, 46)" />
-                    <circle cx="84" cy="98" r="2" fill="white" />
-                    <circle cx="120" cy="98" r="2" fill="white" />
                     <path d="M92 120 L108 120 L100 128 Z" fill="rgb(93, 64, 55)" />
                     <g id="accessory-group">
                         <path id="svg-hat" d="M60 60 L75 30 L100 50 L125 30 L140 60 Z" fill="rgb(255, 215, 0)" stroke="rgb(255, 143, 0)" stroke-width="3"/>
@@ -241,166 +220,201 @@
                     </g>
                 </svg>
             </div>
-            <div class="space-y-8 max-w-4xl">
-                <p id="result-text" class="text-xl sm:text-3xl md:text-4xl text-yellow-200 font-bold px-6 leading-relaxed">You are a hero in your own special way!</p>
-                <button onclick="resetGame()" class="text-white bg-white/20 px-12 py-5 rounded-full cinzel text-xl sm:text-2xl font-black uppercase tracking-widest active:scale-95 hover:bg-white/30 transition-all shadow-xl">Play Again</button>
+            <div class="space-y-8 max-w-4xl text-center">
+                <p id="result-text" class="text-3xl sm:text-4xl md:text-6xl text-yellow-200 font-bold px-6 leading-tight"></p>
+                <p id="result-advice" class="text-xl sm:text-2xl md:text-4xl text-cyan-200 font-medium px-6 italic opacity-90"></p>
+                <button id="replay-btn" class="text-white bg-white/20 px-12 py-5 rounded-full cinzel text-xl sm:text-2xl font-black uppercase active:scale-95 shadow-xl hover:bg-white/30 transition-all">Play Again</button>
             </div>
         </div>
     </div>
 
     <script>
-        const adventureBank = [
-            { q: "A chocolate river blocks the way!", a: { text: "Build a candy bridge for all", icon: "🌈" }, b: { text: "Fly a solo balloon", icon: "🎈" } },
-            { q: "You find magical glowing seeds!", a: { text: "Plant a forest for the town", icon: "🌸" }, b: { text: "Grow a secret tree", icon: "💡" } },
-            { q: "The sky turns grey! Help out?", a: { text: "Lead a sun-parade", icon: "🎺" }, b: { text: "Paint a bright picture", icon: "🎨" } },
-            { q: "A lonely dragon is crying!", a: { text: "Invite the village to play", icon: "🐉" }, b: { text: "Give a toy and go home", icon: "🧸" } },
-            { q: "Library books are mixed up!", a: { text: "Team cleanup party", icon: "📚" }, b: { text: "Read one book quietly", icon: "🕯️" } },
-            { q: "A golden bird is stuck high up!", a: { text: "Ask friends for help", icon: "🦜" }, b: { text: "Climb the tree alone", icon: "🧗" } },
-            { q: "The royal garden is thirsty!", a: { text: "Ask your friends for buckets", icon: "💧" }, b: { text: "Use your magic wand", icon: "🪄" } },
-            { q: "A shooting star lands nearby!", a: { text: "Make a wish for everyone", icon: "⭐" }, b: { text: "Follow it to find treasure", icon: "💎" } }
-        ];
+        window.onload = function() {
+            const adventureBank = [
+                { q: "You find some trash on the floor.", a: { text: "Pick it up", icon: "🗑️", advice: "Helping keep our home clean is a super choice!" }, b: { text: "Leave it there", icon: "🚶", advice: "Try to help by picking up toys and trash!" } },
+                { q: "A friend is feeling sad.", a: { text: "Say kind words", icon: "❤️", advice: "Your kind words make everyone feel happy!" }, b: { text: "Walk away", icon: "👣", advice: "Even a small smile can help a friend feel better!" } },
+                { q: "You finish playing with toys.", a: { text: "Clean them up", icon: "🧸", advice: "Cleaning up toys is what smart heroes do!" }, b: { text: "Make a mess", icon: "🌪️", advice: "Putting toys back helps you find them next time!" } },
+                { q: "You have a yummy snack.", a: { text: "Share with others", icon: "🍪", advice: "Sharing snacks is the best way to have fun!" }, b: { text: "Eat it all alone", icon: "🙊", advice: "Try sharing next time to see a friend's big smile!" } },
+                { q: "You feel very angry.", a: { text: "Take deep breaths", icon: "🌬️", advice: "Deep breaths help you stay calm and smart!" }, b: { text: "Scream and shout", icon: "📢", advice: "If you feel mad, try counting to five next time!" } },
+                { q: "Someone needs help reaching a toy.", a: { text: "Help them out", icon: "🤝", advice: "Helping others makes you a great leader!" }, b: { text: "Keep it for yourself", icon: "🤚", advice: "Being helpful feels better than having all the toys!" } },
+                { q: "You see a thirsty plant.", a: { text: "Give it water", icon: "💧", advice: "Caring for plants helps the whole world grow!" }, b: { text: "Pull its leaves", icon: "🥀", advice: "Being gentle with nature is a very smart habit!" } },
+                { q: "You make a little mistake.", a: { text: "Say sorry", icon: "🙏", advice: "Saying sorry shows how brave and smart you are!" }, b: { text: "Blame a friend", icon: "👉", advice: "It is okay to make mistakes; just be honest!" } }
+            ];
 
-        let activeQuestions = [], currentQuestion = 0, scoreA = 0;
-        const canvas = document.getElementById('bg-canvas'), ctx = canvas.getContext('2d');
-        let particles = [];
+            const resultTitles = {
+                high: ["KIND LEADER!", "GOLD HEART HERO!", "KINDNESS CHAMPION!", "SUPER HELPER!"],
+                medium: ["BRAVE SCOUT!", "SMART CHOICE MAKER!", "DAILY STAR!", "COOL FRIEND!"],
+                low: ["SMART LEARNER!", "GROWING HERO!", "NEW EXPLORER!", "FUTURE LEADER!"]
+            };
 
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            initParticles();
-        }
+            let activeQuestions = [], currentQuestion = 0, scoreA = 0;
+            let userChoicesAdvice = [];
+            const canvas = document.getElementById('bg-canvas'), ctx = canvas.getContext('2d');
+            let particles = [];
 
-        class Particle {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 4 + 1;
-                this.speedX = (Math.random() - 0.5) * 1.5;
-                this.speedY = (Math.random() - 0.5) * 1.5;
-                this.opacity = Math.random();
-                const colors = ['rgb(255,215,0)', 'rgb(255,20,147)', 'rgb(0,191,255)', 'rgb(173,255,47)'];
-                this.color = colors[Math.floor(Math.random() * colors.length)];
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                initParticles();
             }
-            update() {
-                this.x += this.speedX; this.y += this.speedY;
-                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+
+            class Particle {
+                constructor() { this.reset(); }
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 5 + 1;
+                    this.speedX = (Math.random() - 0.5) * 1.5;
+                    this.speedY = (Math.random() - 0.5) * 1.5;
+                    this.opacity = Math.random();
+                    const colors = ['#ffd700', '#daa520', '#fffacd', '#ffffff'];
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                }
+                update() {
+                    this.x += this.speedX; this.y += this.speedY;
+                    if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+                }
+                draw() {
+                    ctx.fillStyle = this.color; ctx.globalAlpha = this.opacity * 0.45;
+                    ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+                }
             }
-            draw() {
-                ctx.fillStyle = this.color; ctx.globalAlpha = this.opacity * 0.4;
-                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+
+            function initParticles() {
+                particles = [];
+                const count = window.innerWidth < 768 ? 30 : 100;
+                for (let i = 0; i < count; i++) particles.push(new Particle());
             }
-        }
 
-        function initParticles() {
-            particles = [];
-            const count = window.innerWidth < 768 ? 50 : 150;
-            for (let i = 0; i < count; i++) particles.push(new Particle());
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
-        }
-
-        function toggleFullScreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(() => {});
-            } else {
-                document.exitFullscreen();
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => { p.update(); p.draw(); });
+                requestAnimationFrame(animate);
             }
-        }
 
-        function startGame() {
-            activeQuestions = [...adventureBank].sort(() => Math.random() - 0.5).slice(0, 5);
-            currentQuestion = 0; scoreA = 0;
-            showScreen('question-screen');
-            loadQuestion();
-        }
-
-        function showScreen(id) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-        }
-
-        function loadQuestion() {
-            const data = activeQuestions[currentQuestion];
-            document.getElementById('question-text').innerText = data.q;
-            document.getElementById('option-a-text').innerText = data.a.text;
-            document.getElementById('option-a-icon').innerText = data.a.icon;
-            document.getElementById('option-b-text').innerText = data.b.text;
-            document.getElementById('option-b-icon').innerText = data.b.icon;
-            document.getElementById('progress-inner').style.width = `${(currentQuestion / activeQuestions.length) * 100}%`;
-        }
-
-        function handleChoice(choice) {
-            if (choice === 'A') scoreA++;
-            createExplosion();
-            currentQuestion++;
-            if (currentQuestion < activeQuestions.length) loadQuestion();
-            else showResult();
-        }
-
-        function showResult() {
-            showScreen('result-screen');
-            launchConfetti();
-            const title = document.getElementById('result-title'), text = document.getElementById('result-text');
-            const hat = document.getElementById('svg-hat'), cape = document.getElementById('svg-cape');
-            const dots = [document.getElementById('dot-1'), document.getElementById('dot-2'), document.getElementById('dot-3')];
-
-            if (scoreA >= 3) {
-                title.innerText = "LION HEART!";
-                text.innerText = "You are a Kindhearted Hero! You make the whole kingdom shine with happiness and leadership.";
-                hat.setAttribute('d', 'M60 60 L75 30 L100 50 L125 30 L140 60 Z');
-                hat.setAttribute('fill', 'rgb(255,215,0)');
-                dots.forEach(d => d.style.display = 'block');
-                cape.setAttribute('fill', 'rgb(233,30,99)');
-            } else {
-                title.innerText = "EXPLORER!";
-                text.innerText = "You are a Brave Adventurer! You lead the way with your smart ideas and bold heart.";
-                hat.setAttribute('d', 'M50 65 L60 55 Q100 35 140 55 L150 65 Q100 75 50 65');
-                hat.setAttribute('fill', 'rgb(215,196,158)');
-                dots.forEach(d => d.style.display = 'none');
-                cape.setAttribute('fill', 'rgb(33,150,243)');
+            function showScreen(id) {
+                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+                document.getElementById(id).classList.add('active');
             }
-        }
 
-        function resetGame() { showScreen('start-screen'); }
+            function loadQuestion() {
+                const data = activeQuestions[currentQuestion];
+                document.getElementById('question-text').innerText = data.q;
+                
+                const isSwapped = Math.random() > 0.5;
+                const opt1 = isSwapped ? data.b : data.a;
+                const opt2 = isSwapped ? data.a : data.b;
+                const type1 = isSwapped ? 'B' : 'A';
+                const type2 = isSwapped ? 'A' : 'B';
 
-        function createExplosion() {
-            const colors = ['#FFD700', '#FF1493', '#00BFFF', '#ADFF2F'];
-            for (let i = 0; i < 30; i++) {
-                const p = document.createElement('div');
-                p.className = 'particle';
-                p.style.left = '50%'; p.style.top = '50%';
-                p.style.width = '12px'; p.style.height = '12px';
-                p.style.background = colors[Math.floor(Math.random() * colors.length)];
-                p.style.boxShadow = '0 0 15px white';
-                const angle = Math.random() * Math.PI * 2, dist = Math.random() * 200 + 50;
-                p.animate([{ transform: 'translate(0,0) scale(1.5)', opacity: 1 }, { transform: `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px) scale(0)`, opacity: 0 }], { duration: 600, easing: 'ease-out' }).onfinish = () => p.remove();
-                document.body.appendChild(p);
+                const btnA = document.getElementById('btn-a');
+                const btnB = document.getElementById('btn-b');
+
+                document.getElementById('option-a-text').innerText = opt1.text;
+                document.getElementById('option-a-icon').innerText = opt1.icon;
+                btnA.setAttribute('data-type', type1);
+                btnA.setAttribute('data-advice', opt1.advice);
+
+                document.getElementById('option-b-text').innerText = opt2.text;
+                document.getElementById('option-b-icon').innerText = opt2.icon;
+                btnB.setAttribute('data-type', type2);
+                btnB.setAttribute('data-advice', opt2.advice);
+
+                document.getElementById('progress-inner').style.width = `${(currentQuestion / activeQuestions.length) * 100}%`;
             }
-        }
 
-        function launchConfetti() {
-            const interval = setInterval(() => {
-                if (!document.getElementById('result-screen').classList.contains('active')) { clearInterval(interval); return; }
-                const p = document.createElement('div');
-                p.className = 'particle';
-                p.style.left = Math.random() * 100 + 'vw'; p.style.top = '105vh';
-                p.style.width = '14px'; p.style.height = '14px';
-                p.style.background = `hsl(${Math.random()*360}, 80%, 65%)`;
-                p.style.boxShadow = '0 0 10px rgba(255,255,255,0.5)';
-                p.animate([{ transform: 'translateY(0)', opacity: 1 }, { transform: 'translateY(-110vh) rotate(720deg)', opacity: 0 }], { duration: 2500, easing: 'linear' }).onfinish = () => p.remove();
-                document.body.appendChild(p);
-            }, 50);
-        }
+            function startGame() {
+                activeQuestions = [...adventureBank].sort(() => Math.random() - 0.5).slice(0, 5);
+                currentQuestion = 0; scoreA = 0; userChoicesAdvice = [];
+                showScreen('question-screen');
+                loadQuestion();
+            }
 
-        window.addEventListener('resize', resize);
-        resize();
-        animate();
+            function handleChoice(elementId) {
+                const btn = document.getElementById(elementId);
+                const type = btn.getAttribute('data-type');
+                const advice = btn.getAttribute('data-advice');
+                if (type === 'A') scoreA++;
+                userChoicesAdvice.push(advice);
+                createExplosion();
+                currentQuestion++;
+                if (currentQuestion < activeQuestions.length) setTimeout(loadQuestion, 200);
+                else showResult();
+            }
+
+            function showResult() {
+                showScreen('result-screen');
+                const titleEl = document.getElementById('result-title');
+                const textEl = document.getElementById('result-text');
+                const adviceEl = document.getElementById('result-advice');
+                const hat = document.getElementById('svg-hat');
+                const cape = document.getElementById('svg-cape');
+                const dots = [document.getElementById('dot-1'), document.getElementById('dot-2'), document.getElementById('dot-3')];
+
+                let finalTitle = "";
+                let baseText = "";
+                
+                if (scoreA === 5) {
+                    finalTitle = resultTitles.high[Math.floor(Math.random() * resultTitles.high.length)];
+                    baseText = "You are a Kind Leader!";
+                    hat.setAttribute('d', 'M60 60 L75 30 L100 50 L125 30 L140 60 Z');
+                    hat.setAttribute('fill', 'rgb(255,215,0)');
+                    dots.forEach(d => d.style.display = 'block');
+                    cape.setAttribute('fill', 'rgb(233, 30, 99)');
+                } else if (scoreA >= 3) {
+                    finalTitle = resultTitles.medium[Math.floor(Math.random() * resultTitles.medium.length)];
+                    baseText = "You are a Brave Scout!";
+                    hat.setAttribute('d', 'M50 65 L60 55 Q100 35 140 55 L150 65 Q100 75 50 65');
+                    hat.setAttribute('fill', 'rgb(215, 196, 158)');
+                    dots.forEach(d => d.style.display = 'none');
+                    cape.setAttribute('fill', 'rgb(33, 150, 243)');
+                } else {
+                    finalTitle = resultTitles.low[Math.floor(Math.random() * resultTitles.low.length)];
+                    baseText = "You are a Smart Learner!";
+                    hat.setAttribute('d', 'M50 65 L60 55 Q100 35 140 55 L150 65 Q100 75 50 65');
+                    hat.setAttribute('fill', 'rgb(180, 180, 180)');
+                    dots.forEach(d => d.style.display = 'none');
+                    cape.setAttribute('fill', 'rgb(75, 0, 130)');
+                }
+
+                titleEl.innerText = finalTitle;
+                textEl.innerText = baseText;
+
+                let finalAdvice = "";
+                const badChoiceAdvices = userChoicesAdvice.filter(a => a.includes("Try") || a.includes("Next") || a.includes("If"));
+                if (badChoiceAdvices.length > 0) finalAdvice = badChoiceAdvices[Math.floor(Math.random() * badChoiceAdvices.length)];
+                else finalAdvice = userChoicesAdvice[Math.floor(Math.random() * userChoicesAdvice.length)];
+                adviceEl.innerText = finalAdvice;
+            }
+
+            function createExplosion() {
+                const colors = ['#FFD700', '#DAA520', '#FFFFFF'];
+                for (let i = 0; i < 30; i++) {
+                    const p = document.createElement('div');
+                    p.className = 'particle';
+                    p.style.left = '50%'; p.style.top = '50%';
+                    p.style.width = '14px'; p.style.height = '14px';
+                    p.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    p.style.boxShadow = '0 0 15px white';
+                    const angle = Math.random() * Math.PI * 2, dist = Math.random() * 200 + 50;
+                    p.animate([{ transform: 'translate(0,0) scale(1.5)', opacity: 1 }, { transform: `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px) scale(0)`, opacity: 0 }], { duration: 600, easing: 'ease-out' }).onfinish = () => p.remove();
+                    document.body.appendChild(p);
+                }
+            }
+
+            document.getElementById('start-btn').onclick = startGame;
+            document.getElementById('btn-a').onclick = () => handleChoice('btn-a');
+            document.getElementById('btn-b').onclick = () => handleChoice('btn-b');
+            document.getElementById('replay-btn').onclick = () => showScreen('start-screen');
+            document.getElementById('fs-btn').onclick = function() {
+                if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
+                else document.exitFullscreen();
+            };
+
+            window.addEventListener('resize', resize);
+            resize();
+            animate();
+        };
     </script>
 </body>
 </html>
-
