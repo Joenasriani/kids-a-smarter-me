@@ -125,6 +125,16 @@
             cursor: pointer;
         }
 
+        .conclusion-small {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 0.35em;
+            display: block;
+            margin-bottom: 0.5vh;
+            opacity: 1;
+            -webkit-text-fill-color: white;
+            text-transform: none;
+        }
+
         @media (min-width: 1900px) {
             h1 { font-size: 9rem !important; }
             h2 { font-size: 5rem !important; }
@@ -169,7 +179,7 @@
             <div class="start-text-group space-y-6">
                 <h1 class="cinzel text-5xl sm:text-7xl md:text-8xl shiny-gold-text uppercase font-black leading-tight">A SMARTER ME!</h1>
                 <p class="text-xl sm:text-2xl text-cyan-200 font-bold uppercase tracking-widest">Find your special heart!</p>
-                <button id="start-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-12 py-5 sm:px-24 sm:py-8 rounded-full text-2xl sm:text-4xl cinzel uppercase font-black text-white shadow-2xl transition-transform active:scale-90">Play Game</button>
+                <button id="start-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-12 py-5 sm:px-24 sm:py-8 rounded-full text-2xl sm:text-4xl cinzel uppercase font-black text-white shadow-2xl transition-transform active:scale-90 hover:brightness-110">Play Game</button>
             </div>
         </div>
     </div>
@@ -198,7 +208,7 @@
 
     <div id="result-screen" class="screen">
         <div class="content-wrap">
-            <h1 id="result-title" class="cinzel text-5xl sm:text-7xl md:text-9xl shiny-gold-text font-black uppercase text-center leading-tight">YOU ARE AMAZING!</h1>
+            <h1 id="result-title" class="cinzel text-5xl sm:text-7xl md:text-9xl shiny-gold-text font-black uppercase text-center leading-tight"></h1>
             <div class="lion-container">
                 <svg id="result-svg" class="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80" viewBox="0 0 200 200">
                     <circle cx="100" cy="100" r="80" fill="url(#auraGrad)" opacity="0.6" />
@@ -220,10 +230,10 @@
                     </g>
                 </svg>
             </div>
-            <div class="space-y-8 max-w-4xl text-center">
-                <p id="result-text" class="text-3xl sm:text-4xl md:text-6xl text-yellow-200 font-bold px-6 leading-tight"></p>
-                <p id="result-advice" class="text-xl sm:text-2xl md:text-4xl text-cyan-200 font-medium px-6 italic opacity-90"></p>
-                <button id="replay-btn" class="text-white bg-white/20 px-12 py-5 rounded-full cinzel text-xl sm:text-2xl font-black uppercase active:scale-95 shadow-xl hover:bg-white/30 transition-all">Play Again</button>
+            <div class="space-y-4 max-w-4xl text-center">
+                <p id="result-advice" class="text-base sm:text-lg md:text-xl text-cyan-200 font-medium px-6 italic opacity-90"></p>
+                <!-- Color updated to match the start-btn -->
+                <button id="replay-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-12 py-5 sm:px-24 sm:py-8 rounded-full cinzel text-xl sm:text-2xl font-black uppercase text-white shadow-2xl transition-transform active:scale-95 hover:brightness-110">Play Again</button>
             </div>
         </div>
     </div>
@@ -241,10 +251,16 @@
                 { q: "You make a little mistake.", a: { text: "Say sorry", icon: "🙏", advice: "Saying sorry shows how brave and smart you are!" }, b: { text: "Blame a friend", icon: "👉", advice: "It is okay to make mistakes; just be honest!" } }
             ];
 
-            const resultTitles = {
-                high: ["KIND LEADER!", "GOLD HEART HERO!", "KINDNESS CHAMPION!", "SUPER HELPER!"],
-                medium: ["BRAVE SCOUT!", "SMART CHOICE MAKER!", "DAILY STAR!", "COOL FRIEND!"],
-                low: ["SMART LEARNER!", "GROWING HERO!", "NEW EXPLORER!", "FUTURE LEADER!"]
+            const resultCategories = {
+                high: {
+                    titles: ["GOLD HEART HERO!", "KIND LEADER!", "KINDNESS CHAMPION!", "SUPER HELPER!", "JOY BRINGER!", "PURE HEART!", "KINDNESS MASTER!", "GRAND LEADER!"],
+                },
+                medium: {
+                    titles: ["BRAVE SCOUT!", "SMART CHOICE MAKER!", "DAILY STAR!", "COOL FRIEND!", "WISE EXPLORER!", "GREAT TEAMMATE!", "SMART THINKER!", "BRAVE HEART!"],
+                },
+                low: {
+                    titles: ["SMART LEARNER!", "GROWING HERO!", "NEW EXPLORER!", "FUTURE LEADER!", "BRAVE BEGINNER!", "KIND STUDENT!", "RISING STAR!", "NEW HERO!"],
+                }
             };
 
             let activeQuestions = [], currentQuestion = 0, scoreA = 0;
@@ -345,40 +361,37 @@
             function showResult() {
                 showScreen('result-screen');
                 const titleEl = document.getElementById('result-title');
-                const textEl = document.getElementById('result-text');
                 const adviceEl = document.getElementById('result-advice');
                 const hat = document.getElementById('svg-hat');
                 const cape = document.getElementById('svg-cape');
                 const dots = [document.getElementById('dot-1'), document.getElementById('dot-2'), document.getElementById('dot-3')];
 
-                let finalTitle = "";
-                let baseText = "";
+                let cat = "";
+                if (scoreA === 5) cat = "high";
+                else if (scoreA >= 3) cat = "medium";
+                else cat = "low";
+
+                const category = resultCategories[cat];
+                const randomIndex = Math.floor(Math.random() * category.titles.length);
                 
-                if (scoreA === 5) {
-                    finalTitle = resultTitles.high[Math.floor(Math.random() * resultTitles.high.length)];
-                    baseText = "You are a Kind Leader!";
+                titleEl.innerHTML = '<span class="conclusion-small">You are</span>A ' + category.titles[randomIndex];
+
+                if (cat === "high") {
                     hat.setAttribute('d', 'M60 60 L75 30 L100 50 L125 30 L140 60 Z');
                     hat.setAttribute('fill', 'rgb(255,215,0)');
                     dots.forEach(d => d.style.display = 'block');
                     cape.setAttribute('fill', 'rgb(233, 30, 99)');
-                } else if (scoreA >= 3) {
-                    finalTitle = resultTitles.medium[Math.floor(Math.random() * resultTitles.medium.length)];
-                    baseText = "You are a Brave Scout!";
+                } else if (cat === "medium") {
                     hat.setAttribute('d', 'M50 65 L60 55 Q100 35 140 55 L150 65 Q100 75 50 65');
                     hat.setAttribute('fill', 'rgb(215, 196, 158)');
                     dots.forEach(d => d.style.display = 'none');
                     cape.setAttribute('fill', 'rgb(33, 150, 243)');
                 } else {
-                    finalTitle = resultTitles.low[Math.floor(Math.random() * resultTitles.low.length)];
-                    baseText = "You are a Smart Learner!";
                     hat.setAttribute('d', 'M50 65 L60 55 Q100 35 140 55 L150 65 Q100 75 50 65');
                     hat.setAttribute('fill', 'rgb(180, 180, 180)');
                     dots.forEach(d => d.style.display = 'none');
                     cape.setAttribute('fill', 'rgb(75, 0, 130)');
                 }
-
-                titleEl.innerText = finalTitle;
-                textEl.innerText = baseText;
 
                 let finalAdvice = "";
                 const badChoiceAdvices = userChoicesAdvice.filter(a => a.includes("Try") || a.includes("Next") || a.includes("If"));
