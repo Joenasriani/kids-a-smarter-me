@@ -102,14 +102,14 @@
 
         .content-wrap {
             width: 100%;
-            max-width: 1200px; /* Constrain width for large screens */
+            max-width: 1200px;
             height: 100%;
-            max-height: 900px; /* Constrain height for large screens */
+            max-height: 900px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center; /* Changed from space-around to center for better grouping */
-            gap: 4vh; /* Consistent spacing */
+            justify-content: center;
+            gap: 4vh;
             margin: auto;
         }
 
@@ -234,7 +234,7 @@
                     </g>
                 </svg>
             </div>
-            <div class="space-y-8 max-w-4xl text-center">
+            <div class="space-y-4 max-w-4xl text-center">
                 <p id="result-advice" class="text-base sm:text-lg md:text-xl text-cyan-200 font-medium px-6 italic opacity-90"></p>
                 <button id="replay-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-12 py-5 sm:px-24 sm:py-8 rounded-full cinzel text-xl sm:text-2xl font-black uppercase text-white shadow-2xl transition-transform active:scale-95 hover:brightness-110">Play Again</button>
             </div>
@@ -244,25 +244,25 @@
     <script>
         window.onload = function() {
             const adventureBank = [
-                { q: "You find some trash on the floor.", a: { text: "Pick it up", icon: "🗑️", advice: "Helping keep our home clean is a super choice!" }, b: { text: "Leave it there", icon: "🚶", advice: "Try to help by picking up toys and trash!" } },
+                { q: "You find some trash on the floor.", a: { text: "Pick it up", icon: "🗑️", advice: "Helping keep our home clean is a super choice!" }, b: { text: "Leave it there", icon: "🚶", advice: "Try to pick up one thing next time to help out!" } },
                 { q: "A friend is feeling sad.", a: { text: "Say kind words", icon: "❤️", advice: "Your kind words make everyone feel happy!" }, b: { text: "Walk away", icon: "👣", advice: "Even a small smile can help a friend feel better!" } },
-                { q: "You finish playing with toys.", a: { text: "Clean them up", icon: "🧸", advice: "Cleaning up toys is what smart heroes do!" }, b: { text: "Make a mess", icon: "🌪️", advice: "Putting toys back helps you find them next time!" } },
-                { q: "You have a yummy snack.", a: { text: "Share with others", icon: "🍪", advice: "Sharing snacks is the best way to have fun!" }, b: { text: "Eat it all alone", icon: "🙊", advice: "Try sharing next time to see a friend's big smile!" } },
-                { q: "You feel very angry.", a: { text: "Take deep breaths", icon: "🌬️", advice: "Deep breaths help you stay calm and smart!" }, b: { text: "Scream and shout", icon: "📢", advice: "If you feel mad, try counting to five next time!" } },
-                { q: "Someone needs help reaching a toy.", a: { text: "Help them out", icon: "🤝", advice: "Helping others makes you a great leader!" }, b: { text: "Keep it for yourself", icon: "🤚", advice: "Being helpful feels better than having all the toys!" } },
-                { q: "You see a thirsty plant.", a: { text: "Give it water", icon: "💧", advice: "Caring for plants helps the whole world grow!" }, b: { text: "Pull its leaves", icon: "🥀", advice: "Being gentle with nature is a very smart habit!" } },
-                { q: "You make a little mistake.", a: { text: "Say sorry", icon: "🙏", advice: "Saying sorry shows how brave and smart you are!" }, b: { text: "Blame a friend", icon: "👉", advice: "It is okay to make mistakes; just be honest!" } }
+                { q: "You finish playing with toys.", a: { text: "Clean them up", icon: "🧸", advice: "Cleaning up toys is what smart helpers do!" }, b: { text: "Make a mess", icon: "🌪️", advice: "Putting toys back helps you find them next time!" } },
+                { q: "You have a yummy snack.", a: { text: "Share with others", icon: "🍪", advice: "Sharing with others shows you have a big heart!" }, b: { text: "Eat it all alone", icon: "🙊", advice: "Sharing makes everyone have more fun next time!" } },
+                { q: "You feel very angry.", a: { text: "Take deep breaths", icon: "🌬️", advice: "Deep breaths help you stay calm and wise!" }, b: { text: "Scream and shout", icon: "📢", advice: "If you feel mad, try counting to five next time!" } },
+                { q: "Someone needs help reaching a toy.", a: { text: "Help them out", icon: "🤝", advice: "Helping others reach their goals is great!" }, b: { text: "Keep it for yourself", icon: "🤚", advice: "Being a helper feels better than playing alone!" } },
+                { q: "You see a thirsty plant.", a: { text: "Give it water", icon: "💧", advice: "Caring for nature shows you are very thoughtful!" }, b: { text: "Pull its leaves", icon: "🥀", advice: "Next time, try to be soft and gentle with plants!" } },
+                { q: "You make a little mistake.", a: { text: "Say sorry", icon: "🙏", advice: "Being honest shows how brave you are!" }, b: { text: "Blame a friend", icon: "👉", advice: "It's okay to make mistakes; just try to tell the truth!" } }
             ];
 
             const resultCategories = {
                 high: {
-                    titles: ["GOLD HEART HERO!", "KIND LEADER!", "KINDNESS CHAMPION!", "SUPER HELPER!", "JOY BRINGER!", "PURE HEART!", "KINDNESS MASTER!", "GRAND LEADER!"],
+                    titles: ["A HELPFUL LEADER!", "A KIND FRIEND!", "A CARING HERO!", "A GENEROUS HELPER!", "A WISE TEAMMATE!", "A THOUGHTFUL SCOUT!", "A BRAVE LEADER!"],
                 },
                 medium: {
-                    titles: ["BRAVE SCOUT!", "SMART CHOICE MAKER!", "DAILY STAR!", "COOL FRIEND!", "WISE EXPLORER!", "GREAT TEAMMATE!", "SMART THINKER!", "BRAVE HEART!"],
+                    titles: ["A BRAVE LEARNER!", "A SMART SCOUT!", "A GROWING HELPER!", "A GOOD FRIEND!", "A WISE THINKER!", "A KIND SCOUT!"],
                 },
                 low: {
-                    titles: ["SMART LEARNER!", "GROWING HERO!", "NEW EXPLORER!", "FUTURE LEADER!", "BRAVE BEGINNER!", "KIND STUDENT!", "RISING STAR!", "NEW HERO!"],
+                    titles: ["A NEW EXPLORER!", "A BRAVE BEGINNER!", "A FUTURE SCOUT!", "A GROWING SCOUT!", "A YOUNG LEARNER!"],
                 }
             };
 
@@ -370,14 +370,14 @@
                 const dots = [document.getElementById('dot-1'), document.getElementById('dot-2'), document.getElementById('dot-3')];
 
                 let cat = "";
-                if (scoreA === 5) cat = "high";
-                else if (scoreA >= 3) cat = "medium";
+                if (scoreA >= 4) cat = "high";
+                else if (scoreA >= 2) cat = "medium";
                 else cat = "low";
 
                 const category = resultCategories[cat];
                 const randomIndex = Math.floor(Math.random() * category.titles.length);
                 
-                titleEl.innerHTML = '<span class="conclusion-small">You are</span>A ' + category.titles[randomIndex];
+                titleEl.innerHTML = '<span class="conclusion-small">You are</span>' + category.titles[randomIndex];
 
                 if (cat === "high") {
                     hat.setAttribute('d', 'M60 60 L75 30 L100 50 L125 30 L140 60 Z');
@@ -397,7 +397,7 @@
                 }
 
                 let finalAdvice = "";
-                const badChoiceAdvices = userChoicesAdvice.filter(a => a.includes("Try") || a.includes("Next") || a.includes("If"));
+                const badChoiceAdvices = userChoicesAdvice.filter(a => a.includes("Try") || a.includes("Next") || a.includes("If") || a.includes("smile") || a.includes("better") || a.includes("honesty"));
                 if (badChoiceAdvices.length > 0) finalAdvice = badChoiceAdvices[Math.floor(Math.random() * badChoiceAdvices.length)];
                 else finalAdvice = userChoicesAdvice[Math.floor(Math.random() * userChoicesAdvice.length)];
                 adviceEl.innerText = finalAdvice;
