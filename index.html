@@ -37,8 +37,8 @@
         .cinzel { font-family: 'Cinzel', serif; }
 
         .gold-border {
-            border: clamp(3px, 0.5vw, 10px) solid rgb(255, 215, 0);
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.3), inset 0 0 20px rgba(255, 215, 0, 0.1);
+            border: 0.8vmin solid rgb(255, 215, 0);
+            box-shadow: 0 0 4vmin rgba(255, 215, 0, 0.3), inset 0 0 2vmin rgba(255, 215, 0, 0.1);
         }
 
         .shiny-gold-text {
@@ -47,6 +47,7 @@
             -webkit-text-fill-color: transparent;
             background-size: 200% auto;
             animation: shimmer 3s linear infinite;
+            text-shadow: 0 1vmin 3vmin rgba(0,0,0,0.3);
         }
 
         @keyframes shimmer {
@@ -67,7 +68,7 @@
 
         .lion-container {
             animation: bounce 3s infinite alternate ease-in-out;
-            max-height: 25vh;
+            height: 22vmin;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -76,7 +77,7 @@
 
         @keyframes bounce {
             from { transform: translateY(0) scale(1); }
-            to { transform: translateY(-2vh) scale(1.05); }
+            to { transform: translateY(-2vmin) scale(1.05); }
         }
 
         .screen {
@@ -86,7 +87,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: calc(2rem + var(--safe-area-inset-top)) 2rem calc(2rem + var(--safe-area-inset-bottom));
+            padding: 4vmin;
             text-align: center;
             position: absolute;
             top: 0;
@@ -102,10 +103,9 @@
         }
 
         .content-wrap {
-            width: 95%;
-            max-width: 1600px;
-            height: 90%;
-            max-height: 1000px;
+            width: 95vw;
+            max-width: 170vmin;
+            height: 95vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -115,95 +115,85 @@
 
         .ui-btn {
             position: fixed;
-            top: clamp(1rem, 3vh, 3rem);
+            top: 3vmin;
             z-index: 100;
             background: rgba(255, 215, 0, 0.15);
-            border: clamp(2px, 0.3vw, 5px) solid rgb(255, 215, 0);
-            border-radius: clamp(10px, 1.5vw, 25px);
-            width: clamp(50px, 6vw, 100px); 
-            height: clamp(50px, 6vw, 100px);
+            border: 0.4vmin solid rgb(255, 215, 0);
+            border-radius: 2vmin;
+            width: 8vmin; 
+            height: 8vmin;
             display: flex; align-items: center; justify-content: center;
             color: rgb(255, 215, 0);
             cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
+            transition: transform 0.2s;
         }
 
-        .ui-btn svg {
-            width: 60%;
-            height: 60%;
-        }
-
-        .ui-btn:active { transform: scale(0.9); background: rgba(255, 215, 0, 0.3); }
-        .home-btn { left: clamp(1rem, 3vh, 3rem); display: none; }
-        .fullscreen-btn { right: clamp(1rem, 3vh, 3rem); }
+        .ui-btn svg { width: 5vmin; height: 5vmin; }
+        .ui-btn:active { transform: scale(0.9); }
+        .home-btn { left: 3vmin; display: none; }
+        .fullscreen-btn { right: 3vmin; }
 
         .conclusion-prefix {
             font-family: 'Quicksand', sans-serif;
-            font-size: 0.35em;
+            font-size: 6vmin;
             display: block;
-            margin-bottom: 2vh;
+            margin-bottom: 1.5vmin;
             opacity: 1;
             -webkit-text-fill-color: white;
             text-transform: none;
             font-weight: 700;
         }
 
-        /* Responsive Text Scaling for Large Displays */
-        h1 { font-size: clamp(4.5rem, 15vw, 22rem); }
-        /* Questions (h2) now match the massive scale of the main title */
-        h2 { font-size: clamp(3.5rem, 8vw, 12rem); }
-        p { font-size: clamp(1.4rem, 3vw, 4rem); }
-
-        @media (min-width: 1900px) {
-            .content-wrap { max-width: 2000px; max-height: 1200px; }
-            h1 { font-size: clamp(8rem, 20vw, 30rem); }
-            h2 { font-size: clamp(5rem, 12vw, 18rem); }
-            .choice-btn { min-height: 450px !important; }
+        h1 { 
+            font-size: 20vmin; 
+            line-height: 0.9; 
+            margin: 0;
         }
 
-        @media (orientation: landscape) {
-            .content-wrap { gap: 2vh; }
-            .lion-container { max-height: 20vh; }
+        h2 { 
+            font-size: 14vmin; 
+            line-height: 1; 
+            margin: 0;
         }
 
-        @media (max-height: 700px) and (orientation: landscape) {
-            .content-wrap { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 4vw; }
-            .lion-container { width: 20%; max-height: 30vh; }
-            .start-text-group { width: 70%; }
-            h1 { font-size: clamp(3.5rem, 12vh, 10rem) !important; }
-            h2 { font-size: clamp(2.5rem, 8vh, 8rem) !important; }
-            .grid { grid-template-columns: repeat(2, 1fr) !important; width: 90%; }
-            .question-header { width: 100%; }
-        }
-
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-        }
+        p { font-size: 5.5vmin; }
 
         .advice-list {
             text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 1vh;
+            gap: 1.5vmin;
             width: 100%;
         }
 
         .advice-item {
-            font-size: clamp(1.1rem, 2.2vh, 2.5rem);
-            line-height: 1.4;
+            font-size: 4vmin;
+            line-height: 1.3;
         }
 
         .advice-scroll {
-            max-height: 35vh;
+            max-height: 32vmin;
             overflow-y: auto;
             width: 100%;
-            padding: 1vh;
+            padding: 1vmin;
         }
-        
-        #progress-bar {
-            height: clamp(10px, 2vh, 30px);
+
+        .progress-container {
+            width: 100%;
+            height: 3vmin;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2vmin;
+            overflow: hidden;
+            margin-bottom: 3vmin;
+        }
+
+        .choice-btn-icon { font-size: 15vmin; }
+        .choice-btn-text { font-size: 5.5vmin; }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -226,37 +216,37 @@
 
     <div id="start-screen" class="screen active">
         <div class="content-wrap">
-            <div class="lion-container">
-                <svg class="w-40 h-40 sm:w-64 sm:h-64 md:w-80 md:h-80" viewBox="0 0 100 100">
+            <div class="lion-container h-[30vmin]">
+                <svg class="w-full h-full" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="45" fill="rgba(255, 215, 0, 0.2)" stroke="rgb(255, 215, 0)" stroke-width="2" />
                     <path d="M50 15L58 38H82L63 52L70 75L50 60L30 75L37 52L18 38H42L50 15Z" fill="rgb(255, 215, 0)" />
                 </svg>
             </div>
-            <div class="start-text-group space-y-10">
-                <h1 class="cinzel shiny-gold-text uppercase font-black leading-none">A SMARTER ME!</h1>
-                <p class="text-cyan-200 font-bold uppercase tracking-widest">Find your special heart!</p>
-                <button id="start-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-16 py-6 sm:px-28 sm:py-10 rounded-full text-3xl sm:text-5xl cinzel uppercase font-black text-white shadow-2xl transition-transform active:scale-90 hover:brightness-110">Play Game</button>
+            <div>
+                <h1 class="cinzel shiny-gold-text uppercase font-black">A SMARTER ME!</h1>
+                <p class="text-cyan-200 font-bold uppercase tracking-widest mt-4">Find your special heart!</p>
+                <button id="start-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-16 py-6 rounded-full text-[7vmin] cinzel uppercase font-black text-white shadow-2xl transition-transform active:scale-90 hover:brightness-110 mt-8">Play Game</button>
             </div>
         </div>
     </div>
 
     <div id="question-screen" class="screen">
         <div class="content-wrap">
-            <div class="question-header w-full max-w-5xl space-y-10">
-                <div id="progress-bar" class="w-full bg-white/10 rounded-full overflow-hidden border border-white/5">
+            <div class="w-full max-w-[130vmin]">
+                <div class="progress-container">
                     <div id="progress-inner" class="h-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-500" style="width: 0%"></div>
                 </div>
-                <h2 id="question-text" class="cinzel text-white font-bold leading-tight">What do you pick?</h2>
+                <h2 id="question-text" class="cinzel text-white font-bold">What do you do?</h2>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 w-full">
-                <button id="btn-a" class="choice-btn choice-btn-unified gold-border p-10 rounded-[40px] flex flex-col items-center justify-center space-y-8 min-h-[250px]">
-                    <div id="option-a-icon" class="text-8xl sm:text-9xl md:text-[10rem]">✨</div>
-                    <span id="option-a-text" class="text-xl sm:text-3xl font-black uppercase text-white">Action One</span>
+            <div class="grid grid-cols-2 gap-10 w-full max-w-[150vmin]">
+                <button id="btn-a" class="choice-btn choice-btn-unified gold-border p-8 rounded-[6vmin] flex flex-col items-center justify-center space-y-4 h-[50vmin]">
+                    <div id="option-a-icon" class="choice-btn-icon">✨</div>
+                    <span id="option-a-text" class="choice-btn-text font-black uppercase text-white">I help!</span>
                 </button>
-                <button id="btn-b" class="choice-btn choice-btn-unified gold-border p-10 rounded-[40px] flex flex-col items-center justify-center space-y-8 min-h-[250px]">
-                    <div id="option-b-icon" class="text-8xl sm:text-9xl md:text-[10rem]">🌟</div>
-                    <span id="option-b-text" class="text-xl sm:text-3xl font-black uppercase text-white">Action Two</span>
+                <button id="btn-b" class="choice-btn choice-btn-unified gold-border p-8 rounded-[6vmin] flex flex-col items-center justify-center space-y-4 h-[50vmin]">
+                    <div id="option-b-icon" class="choice-btn-icon">🌟</div>
+                    <span id="option-b-text" class="choice-btn-text font-black uppercase text-white">I wait.</span>
                 </button>
             </div>
         </div>
@@ -264,9 +254,9 @@
 
     <div id="result-screen" class="screen">
         <div class="content-wrap">
-            <h1 id="result-title" class="cinzel shiny-gold-text uppercase font-black text-center leading-none"></h1>
-            <div class="lion-container">
-                <svg id="result-svg" class="w-56 h-56 sm:w-72 sm:h-72 md:w-96 md:h-96" viewBox="0 0 200 200">
+            <!-- Icon on Top -->
+            <div class="lion-container h-[35vmin]">
+                <svg id="result-svg" class="w-full h-full" viewBox="0 0 200 200">
                     <circle cx="100" cy="100" r="80" fill="url(#auraGrad)" opacity="0.6" />
                     <defs>
                         <radialGradient id="auraGrad"><stop offset="0%" stop-color="rgb(255, 215, 0)" /><stop offset="100%" stop-color="transparent" /></radialGradient>
@@ -286,11 +276,14 @@
                     </g>
                 </svg>
             </div>
-            <div class="w-full max-w-5xl text-center space-y-6">
+            <!-- Title Below Icon -->
+            <h1 id="result-title" class="cinzel shiny-gold-text uppercase font-black text-center leading-none"></h1>
+            
+            <div class="w-full max-w-[140vmin] space-y-6">
                 <div class="advice-scroll">
-                    <div id="result-advice-container" class="advice-list text-cyan-200 font-medium px-6 italic opacity-90"></div>
+                    <div id="result-advice-container" class="advice-list text-cyan-200 font-medium italic opacity-90"></div>
                 </div>
-                <button id="replay-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-16 py-6 sm:px-24 sm:py-8 rounded-full cinzel text-2xl sm:text-4xl font-black uppercase text-white shadow-2xl transition-transform active:scale-95 hover:brightness-110">Play Again</button>
+                <button id="replay-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-16 py-6 rounded-full text-[6vmin] cinzel uppercase font-black text-white shadow-2xl transition-transform active:scale-95 hover:brightness-110 mt-4">Play Again</button>
             </div>
         </div>
     </div>
@@ -298,26 +291,26 @@
     <script>
         window.onload = function() {
             const adventureBank = [
-                { q: "You find some trash on the floor.", a: { text: "Pick it up", icon: "🗑️", advice: "Helping keep our home clean is a super choice!" }, b: { text: "Leave it there", icon: "🚶", advice: "Try to pick up one thing next time to help out!" } },
-                { q: "A friend is feeling sad.", a: { text: "Say kind words", icon: "❤️", advice: "Your kind words make everyone feel happy!" }, b: { text: "Walk away", icon: "👣", advice: "Even a small smile can help a friend feel better!" } },
-                { q: "You finish playing with toys.", a: { text: "Clean them up", icon: "🧸", advice: "Cleaning up toys is what smart helpers do!" }, b: { text: "Make a mess", icon: "🌪️", advice: "Putting toys back helps you find them next time!" } },
-                { q: "You have a yummy snack.", a: { text: "Share with others", icon: "🍪", advice: "Sharing snacks is the best way to have fun!" }, b: { text: "Eat it all alone", icon: "🙊", advice: "Sharing snacks makes everyone have more fun next time!" } },
-                { q: "You feel very angry.", a: { text: "Take deep breaths", icon: "🌬️", advice: "Deep breaths help you stay calm and wise!" }, b: { text: "Scream and shout", icon: "📢", advice: "If you feel mad, try counting to five next time!" } },
-                { q: "Someone needs help reaching a toy.", a: { text: "Help them out", icon: "🤝", advice: "Helping others reach their goals is great!" }, b: { text: "Keep it for yourself", icon: "🤚", advice: "Being a helper feels better than playing alone!" } },
-                { q: "You see a thirsty plant.", a: { text: "Give it water", icon: "💧", advice: "Caring for nature shows you are very thoughtful!" }, b: { text: "Pull its leaves", icon: "🥀", advice: "Next time, try to be soft and gentle with plants!" } },
-                { q: "You make a little mistake.", a: { text: "Say sorry", icon: "🙏", advice: "Being honest shows how brave you are!" }, b: { text: "Blame a friend", icon: "👉", advice: "It's okay to make mistakes; just try to tell the truth!" } },
-                { q: "Time for bed but teeth are dirty.", a: { text: "Brush them now", icon: "🪥", advice: "Strong teeth help you chew yummy food!" }, b: { text: "Skip it", icon: "😴", advice: "Brush twice a day to keep your smile bright!" } },
-                { q: "You are ready for lunch.", a: { text: "Wash hands well", icon: "🧼", advice: "Washing hands keeps the tiny germs away!" }, b: { text: "Eat right away", icon: "🍔", advice: "Wash your hands before eating to stay healthy!" } },
-                { q: "You are near a busy road.", a: { text: "Hold a hand", icon: "🤝", advice: "Holding hands keeps you safe near cars!" }, b: { text: "Run across", icon: "🚀", advice: "Always hold an adult's hand when crossing the road!" } },
-                { q: "You get into the car.", a: { text: "Click seatbelt", icon: "🔒", advice: "Buckling up is what smart travelers do!" }, b: { text: "Leave it off", icon: "🚗", advice: "Always wear your seatbelt to be safe in the car!" } },
-                { q: "The stove looks very hot.", a: { text: "Stay away", icon: "🙅", advice: "Staying away from heat keeps your skin safe!" }, b: { text: "Touch it", icon: "🔥", advice: "Never touch the stove; it can be very hot!" } },
-                { q: "You want a toy someone has.", a: { text: "Say Please", icon: "😇", advice: "Kind words make people happy to help you!" }, b: { text: "Just grab it", icon: "😤", advice: "Using polite words shows you are a kind leader!" } },
-                { q: "A friend is on the slide.", a: { text: "Wait your turn", icon: "🧍", advice: "Waiting for your turn is fair and friendly!" }, b: { text: "Push in front", icon: "🏎️", advice: "Taking turns makes playing more fun for everyone!" } },
-                { q: "A friend falls down.", a: { text: "Ask if okay", icon: "🫂", advice: "Helping a friend shows you have a big heart!" }, b: { text: "Laugh at them", icon: "🤭", advice: "Be kind when others fall; they might be hurt!" } },
-                { q: "Your shirt is dirty.", a: { text: "Put in basket", icon: "🧺", advice: "Putting clothes away helps keep your room tidy!" }, b: { text: "Drop on floor", icon: "👕", advice: "Try to put your dirty clothes in the basket!" } },
-                { q: "Dad is carrying big bags.", a: { text: "Help a little", icon: "💪", advice: "Helping your family makes you a super helper!" }, b: { text: "Say I'm tired", icon: "😴", advice: "Even carrying one small bag is a big help!" } },
-                { q: "You are brushing teeth.", a: { text: "Turn off water", icon: "🚱", advice: "Saving water helps the whole planet stay happy!" }, b: { text: "Let it run", icon: "💧", advice: "Turn off the tap while brushing to save water!" } },
-                { q: "You feel a big sneeze coming.", a: { text: "Use a tissue", icon: "🤧", advice: "Using a tissue keeps your friends healthy!" }, b: { text: "Sneeze on hand", icon: "🌬️", advice: "Sneeze into your elbow to stop germs from spreading!" } }
+                { q: "Trash is on the floor!", a: { text: "Pick it up", icon: "🗑️", advice: "Picking up trash makes our home happy!" }, b: { text: "Walk away", icon: "🚶", advice: "Try to pick up trash next time to help!" } },
+                { q: "A friend is crying.", a: { text: "Help them", icon: "❤️", advice: "Helping a sad friend is very kind!" }, b: { text: "Walk away", icon: "👣", advice: "Try to give a hug to a sad friend next time!" } },
+                { q: "Finished playing toys?", a: { text: "Clean up", icon: "🧸", advice: "Cleaning up toys is what smart heroes do!" }, b: { text: "Leave a mess", icon: "🌪️", advice: "Always put toys away to keep them safe!" } },
+                { q: "You have a yummy snack.", a: { text: "Share half", icon: "🍪", advice: "Sharing snacks is the best way to have fun!" }, b: { text: "Eat it all", icon: "🙊", advice: "Try to share your snacks next time!" } },
+                { q: "You feel very mad!", a: { text: "Deep breaths", icon: "🌬️", advice: "Slow breaths help you stay calm and wise!" }, b: { text: "Scream loud", icon: "📢", advice: "Try counting to five when you feel mad!" } },
+                { q: "A friend wants a toy.", a: { text: "Let them play", icon: "🤝", advice: "Sharing your toys makes you a great friend!" }, b: { text: "Say No!", icon: "🤚", advice: "Sharing feels better than playing alone!" } },
+                { q: "A plant is thirsty.", a: { text: "Give water", icon: "💧", advice: "Giving plants water helps them grow big!" }, b: { text: "Pull leaves", icon: "🥀", advice: "Be soft and gentle with plants next time!" } },
+                { q: "You broke a toy!", a: { text: "Tell the truth", icon: "🙏", advice: "Telling the truth is very brave of you!" }, b: { text: "Hide it", icon: "👉", advice: "It's okay to make mistakes; just be honest!" } },
+                { q: "It is time for bed.", a: { text: "Brush teeth", icon: "🪥", advice: "Brushing your teeth makes them strong!" }, b: { text: "Just sleep", icon: "😴", advice: "Brush every night to keep your smile bright!" } },
+                { q: "Lunch is ready!", a: { text: "Wash hands", icon: "🧼", advice: "Washing hands keeps the germs away!" }, b: { text: "Eat now", icon: "🍔", advice: "Always wash your hands before you eat!" } },
+                { q: "Near a busy road!", a: { text: "Hold a hand", icon: "🤝", advice: "Holding hands keeps you safe near cars!" }, b: { text: "Run fast", icon: "🚀", advice: "Always hold an adult's hand near the road!" } },
+                { q: "In the car!", a: { text: "Click belt", icon: "🔒", advice: "Buckling up is what smart travelers do!" }, b: { text: "No belt", icon: "🚗", advice: "Wear your seatbelt every time to be safe!" } },
+                { q: "The stove is hot!", a: { text: "Stay away", icon: "🙅", advice: "Staying away from heat keeps you safe!" }, b: { text: "Touch it", icon: "🔥", advice: "Never touch the stove; it can hurt you!" } },
+                { q: "You want a ball.", a: { text: "Say Please", icon: "😇", advice: "Kind words make people happy to help!" }, b: { text: "Just grab", icon: "😤", advice: "Using polite words is very smart!" } },
+                { q: "Kids are on the slide.", a: { text: "Wait turn", icon: "🧍", advice: "Waiting for your turn is fair and nice!" }, b: { text: "Push in", icon: "🏎️", advice: "Taking turns makes playing more fun!" } },
+                { q: "A friend fell down.", a: { text: "Ask if okay", icon: "🫂", advice: "Helping a friend shows you have a big heart!" }, b: { text: "Laugh", icon: "🤭", advice: "Be kind when others fall; they might be hurt!" } },
+                { q: "Shirt is dirty.", a: { text: "Put in bin", icon: "🧺", advice: "Putting laundry away helps keep things tidy!" }, b: { text: "On the floor", icon: "👕", advice: "Put your dirty clothes in the bin next time!" } },
+                { q: "Dad has heavy bags.", a: { text: "Help carry", icon: "💪", advice: "Helping your family makes you a hero!" }, b: { text: "Say no", icon: "😴", advice: "Even carrying one small bag is a big help!" } },
+                { q: "Brushing your teeth.", a: { text: "Off water", icon: "🚱", advice: "Saving water helps the whole world!" }, b: { text: "Let it run", icon: "💧", advice: "Turn off the water while you brush!" } },
+                { q: "A sneeze is coming!", a: { text: "Use tissue", icon: "🤧", advice: "Using a tissue keeps everyone healthy!" }, b: { text: "Sneeze hand", icon: "🌬️", advice: "Sneeze into your elbow next time!" } }
             ];
 
             const resultCategories = {
@@ -329,6 +322,21 @@
             let growthAdviceList = [], positiveAdviceList = [];
             const canvas = document.getElementById('bg-canvas'), ctx = canvas.getContext('2d');
             let particles = [];
+            let idleTimer;
+            const IDLE_LIMIT = 3 * 60 * 1000;
+
+            function resetIdleTimer() {
+                clearTimeout(idleTimer);
+                idleTimer = setTimeout(() => {
+                    if (!document.getElementById('start-screen').classList.contains('active')) {
+                        showScreen('start-screen');
+                    }
+                }, IDLE_LIMIT);
+            }
+
+            ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(evt => {
+                window.addEventListener(evt, resetIdleTimer, true);
+            });
 
             function resize() {
                 canvas.width = window.innerWidth;
@@ -341,7 +349,7 @@
                 reset() {
                     this.x = Math.random() * canvas.width;
                     this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 5 + 1;
+                    this.size = Math.random() * 0.8 + 0.2;
                     this.speedX = (Math.random() - 0.5) * 1.5;
                     this.speedY = (Math.random() - 0.5) * 1.5;
                     this.opacity = Math.random();
@@ -353,13 +361,13 @@
                 }
                 draw() {
                     ctx.fillStyle = this.color; ctx.globalAlpha = this.opacity * 0.45;
-                    ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+                    ctx.beginPath(); ctx.arc(this.x, this.y, this.size * window.innerWidth / 100, 0, Math.PI * 2); ctx.fill();
                 }
             }
 
             function initParticles() {
                 particles = [];
-                const count = window.innerWidth < 768 ? 40 : 120;
+                const count = 80;
                 for (let i = 0; i < count; i++) particles.push(new Particle());
             }
 
@@ -373,6 +381,7 @@
                 document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
                 document.getElementById(id).classList.add('active');
                 document.getElementById('home-btn').style.display = (id === 'start-screen') ? 'none' : 'flex';
+                resetIdleTimer();
             }
 
             function loadQuestion() {
@@ -459,7 +468,7 @@
                     adviceContainer.appendChild(p);
                     const p2 = document.createElement('p');
                     p2.className = 'advice-item';
-                    p2.textContent = "You made every single choice count today!";
+                    p2.textContent = "You made every choice count today!";
                     adviceContainer.appendChild(p2);
                 }
             }
@@ -469,11 +478,11 @@
                     const p = document.createElement('div');
                     p.className = 'particle';
                     p.style.left = '50%'; p.style.top = '50%';
-                    p.style.width = 'clamp(8px, 1vw, 20px)'; 
-                    p.style.height = 'clamp(8px, 1vw, 20px)';
+                    p.style.width = '2.5vmin'; 
+                    p.style.height = '2.5vmin';
                     p.style.background = ['#FFD700', '#DAA520', '#FFFFFF'][Math.floor(Math.random()*3)];
-                    const angle = Math.random()*Math.PI*2, dist = Math.random()*200 + 100;
-                    p.animate([{transform:'translate(0,0)', opacity:1}, {transform:`translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px)`, opacity:0}], {duration:800}).onfinish = () => p.remove();
+                    const angle = Math.random()*Math.PI*2, dist = Math.random()*35 + 10;
+                    p.animate([{transform:'translate(0,0)', opacity:1}, {transform:`translate(${Math.cos(angle)*dist}vmin, ${Math.sin(angle)*dist}vmin)`, opacity:0}], {duration:800}).onfinish = () => p.remove();
                     document.body.appendChild(p);
                 }
             }
@@ -490,8 +499,7 @@
 
             window.addEventListener('resize', resize);
             resize(); animate();
-            
-            document.getElementById('home-btn').style.display = 'none';
+            resetIdleTimer();
         };
     </script>
 </body>
