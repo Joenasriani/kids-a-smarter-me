@@ -78,7 +78,7 @@
 
         @keyframes bounce {
             from { transform: translateY(0) scale(1); }
-            to { transform: translateY(-1.5vmin) scale(1.05); }
+            to { transform: translateY(-2vmin) scale(1.05); }
         }
 
         .screen {
@@ -106,7 +106,7 @@
 
         .content-wrap {
             width: 95vw;
-            max-width: 180vmin;
+            max-width: 190vmin;
             height: 95vh;
             display: flex;
             flex-direction: column;
@@ -123,22 +123,22 @@
             background: rgba(255, 215, 0, 0.15);
             border: 0.4vmin solid rgb(255, 215, 0);
             border-radius: 2vmin;
-            width: 7.5vmin; 
-            height: 7.5vmin;
+            width: 8vmin; 
+            height: 8vmin;
             display: flex; align-items: center; justify-content: center;
             color: rgb(255, 215, 0);
             cursor: pointer;
             transition: transform 0.2s;
         }
 
-        .ui-btn svg { width: 4.5vmin; height: 4.5vmin; }
+        .ui-btn svg { width: 5vmin; height: 5vmin; }
         .ui-btn:active { transform: scale(0.9); }
         .home-btn { left: 2.5vmin; display: none; }
         .fullscreen-btn { right: 2.5vmin; }
 
         .conclusion-prefix {
             font-family: 'Quicksand', sans-serif;
-            font-size: 5vmin;
+            font-size: 7vmin;
             display: block;
             margin-bottom: 1vmin;
             opacity: 1;
@@ -147,21 +147,30 @@
             font-weight: 700;
         }
 
-        h1 { 
-            font-size: 20vmin; 
-            line-height: 0.9; 
-            margin: 0;
+        /* RECALIBRATED TITLES - NO SIZE RESTRICTIONS */
+        .title-block {
             flex-shrink: 0;
+            width: 100%;
+        }
+
+        h1 { 
+            font-size: 35vmin; 
+            line-height: 0.8; 
+            margin: 0;
+            padding: 0;
+            white-space: nowrap;
         }
 
         h2 { 
-            font-size: 13vmin; 
-            line-height: 1; 
-            margin: 0;
-            flex-shrink: 0;
+            font-size: 18vmin; 
+            line-height: 0.9; 
+            margin: 5vmin 0 0 0; /* Added top margin to lower the questions */
+            padding: 0;
+            text-transform: uppercase;
+            white-space: nowrap;
         }
 
-        p { font-size: 5vmin; margin: 0; flex-shrink: 0; }
+        p { font-size: 6vmin; margin: 0; flex-shrink: 0; }
 
         .advice-list {
             text-align: center;
@@ -172,48 +181,48 @@
         }
 
         .advice-item {
-            font-size: 4vmin;
+            font-size: 4.5vmin;
             line-height: 1.2;
         }
 
         .advice-scroll {
-            max-height: 25vmin;
+            max-height: 30vmin;
             overflow-y: auto;
             width: 100%;
-            padding: 0.5vmin;
+            padding: 1vmin;
             flex-shrink: 1;
         }
 
         .progress-container {
             width: 100%;
-            height: 2.5vmin;
+            height: 3.5vmin;
             background: rgba(255,255,255,0.1);
-            border-radius: 1.5vmin;
+            border-radius: 2vmin;
             overflow: hidden;
             margin-bottom: 2vmin;
         }
 
-        .choice-btn-icon { font-size: 14vmin; line-height: 1; }
-        .choice-btn-text { font-size: 5.5vmin; line-height: 1.1; }
+        .choice-btn-icon { font-size: 16vmin; line-height: 1; }
+        .choice-btn-text { font-size: 6.5vmin; line-height: 1; }
 
         .grid-choices {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 5vmin;
+            gap: 4vmin;
             width: 100%;
-            max-width: 150vmin;
+            max-width: 160vmin;
             flex-shrink: 1;
         }
 
         .choice-btn {
             padding: 3vmin;
-            border-radius: 5vmin;
+            border-radius: 6vmin;
             height: 48vmin;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 2vmin;
+            gap: 1.5vmin;
         }
 
         .particle {
@@ -248,17 +257,17 @@
                     <path d="M50 15L58 38H82L63 52L70 75L50 60L30 75L37 52L18 38H42L50 15Z" fill="rgb(255, 215, 0)" />
                 </svg>
             </div>
-            <div>
+            <div class="title-block">
                 <h1 class="cinzel shiny-gold-text uppercase font-black">A SMARTER ME!</h1>
                 <p class="text-cyan-200 font-bold uppercase tracking-widest mt-2">Find your special heart!</p>
             </div>
-            <button id="start-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-14 py-5 rounded-full text-[6vmin] cinzel uppercase font-black text-white shadow-2xl transition-transform active:scale-90 hover:brightness-110">Play Game</button>
+            <button id="start-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-20 py-6 rounded-full text-[8vmin] cinzel uppercase font-black text-white shadow-2xl transition-transform active:scale-90 hover:brightness-110">Play Game</button>
         </div>
     </div>
 
     <div id="question-screen" class="screen">
         <div class="content-wrap">
-            <div class="w-full max-w-[130vmin]">
+            <div class="w-full max-w-[140vmin] title-block">
                 <div class="progress-container">
                     <div id="progress-inner" class="h-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-500" style="width: 0%"></div>
                 </div>
@@ -280,7 +289,7 @@
 
     <div id="result-screen" class="screen">
         <div class="content-wrap">
-            <div class="lion-container h-[35vmin]">
+            <div class="lion-container h-[40vmin]">
                 <svg id="result-svg" class="w-full h-full" viewBox="0 0 200 200">
                     <circle cx="100" cy="100" r="80" fill="url(#auraGrad)" opacity="0.6" />
                     <defs>
@@ -301,14 +310,16 @@
                     </g>
                 </svg>
             </div>
-            <h1 id="result-title" class="cinzel shiny-gold-text uppercase font-black text-center"></h1>
+            <div class="title-block">
+                <h1 id="result-title" class="cinzel shiny-gold-text uppercase font-black text-center" style="font-size: 25vmin; margin-top: 2vmin;"></h1>
+            </div>
             
-            <div class="w-full max-w-[140vmin]">
+            <div class="w-full max-w-[150vmin]">
                 <div class="advice-scroll">
                     <div id="result-advice-container" class="advice-list text-cyan-200 font-medium italic opacity-90"></div>
                 </div>
             </div>
-            <button id="replay-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-16 py-5 rounded-full text-[5vmin] cinzel uppercase font-black text-white shadow-2xl transition-transform active:scale-95 hover:brightness-110 mt-2">Play Again</button>
+            <button id="replay-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-16 py-6 rounded-full text-[6vmin] cinzel uppercase font-black text-white shadow-2xl transition-transform active:scale-95 hover:brightness-110">Play Again</button>
         </div>
     </div>
 
@@ -358,9 +369,9 @@
                 }, IDLE_LIMIT);
             }
 
-            ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(evt => {
-                window.addEventListener(evt, resetIdleTimer, true);
-            });
+            window.addEventListener('mousedown', resetIdleTimer, true);
+            window.addEventListener('mousemove', resetIdleTimer, true);
+            window.addEventListener('touchstart', resetIdleTimer, true);
 
             function resize() {
                 canvas.width = window.innerWidth;
@@ -454,7 +465,7 @@
                 const wrongCount = growthAdviceList.length;
 
                 if (wrongCount >= 2) {
-                    titleEl.innerHTML = '<span class="conclusion-prefix">You must learn</span>THE FOLLOWING:';
+                    titleEl.innerHTML = '<span class="conclusion-prefix" style="font-size: 8vmin">You must learn</span>THE FOLLOWING:';
                     hat.setAttribute('d', 'M50 65 L60 55 Q100 35 140 55 L150 65 Q100 75 50 65');
                     hat.setAttribute('fill', 'rgb(180, 180, 180)');
                     dots.forEach(d => d.style.display = 'none');
@@ -462,7 +473,7 @@
                 } else {
                     let cat = (scoreA >= 4) ? "high" : "medium";
                     const list = resultCategories[cat];
-                    titleEl.innerHTML = '<span class="conclusion-prefix">You are</span>' + list[Math.floor(Math.random() * list.length)];
+                    titleEl.innerHTML = '<span class="conclusion-prefix" style="font-size: 8vmin">You are</span>' + list[Math.floor(Math.random() * list.length)];
                     if (cat === "high") {
                         hat.setAttribute('d', 'M60 60 L75 30 L100 50 L125 30 L140 60 Z');
                         hat.setAttribute('fill', 'rgb(255,215,0)');
@@ -470,7 +481,7 @@
                         cape.setAttribute('fill', 'rgb(233, 30, 99)');
                     } else {
                         hat.setAttribute('d', 'M50 65 L60 55 Q100 35 140 55 L150 65 Q100 75 50 65');
-                        hat.setAttribute('fill', 'rgb(215, 196, 158)');
+                        hat.setAttribute('fill', 'rgb(33, 150, 243)');
                         dots.forEach(d => d.style.display = 'none');
                         cape.setAttribute('fill', 'rgb(33, 150, 243)');
                     }
@@ -501,10 +512,10 @@
                     const p = document.createElement('div');
                     p.className = 'particle';
                     p.style.left = '50%'; p.style.top = '50%';
-                    p.style.width = '2.5vmin'; 
-                    p.style.height = '2.5vmin';
+                    p.style.width = '3vmin'; 
+                    p.style.height = '3vmin';
                     p.style.background = ['#FFD700', '#DAA520', '#FFFFFF'][Math.floor(Math.random()*3)];
-                    const angle = Math.random()*Math.PI*2, dist = Math.random()*35 + 10;
+                    const angle = Math.random()*Math.PI*2, dist = Math.random()*40 + 10;
                     p.animate([{transform:'translate(0,0)', opacity:1}, {transform:`translate(${Math.cos(angle)*dist}vmin, ${Math.sin(angle)*dist}vmin)`, opacity:0}], {duration:800}).onfinish = () => p.remove();
                     document.body.appendChild(p);
                 }
