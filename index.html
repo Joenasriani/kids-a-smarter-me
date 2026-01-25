@@ -47,7 +47,7 @@
             -webkit-text-fill-color: transparent;
             background-size: 200% auto;
             animation: shimmer 3s linear infinite;
-            text-shadow: 0 1vmin 3vmin rgba(0,0,0,0.3);
+            text-shadow: 0 0.8vmin 2.5vmin rgba(0,0,0,0.3);
         }
 
         @keyframes shimmer {
@@ -113,6 +113,7 @@
             justify-content: space-evenly;
             margin: auto;
             overflow: hidden;
+            max-height: 100vh;
         }
 
         .ui-btn {
@@ -122,15 +123,15 @@
             background: rgba(255, 215, 0, 0.15);
             border: 0.4vmin solid rgb(255, 215, 0);
             border-radius: 2vmin;
-            width: 7.5vmin; 
-            height: 7.5vmin;
+            width: 8vmin; 
+            height: 8vmin;
             display: flex; align-items: center; justify-content: center;
             color: rgb(255, 215, 0);
             cursor: pointer;
             transition: transform 0.2s;
         }
 
-        .ui-btn svg { width: 4.5vmin; height: 4.5vmin; }
+        .ui-btn svg { width: 5vmin; height: 5vmin; }
         .ui-btn:active { transform: scale(0.9); }
         .home-btn { left: 2.5vmin; display: none; }
         .fullscreen-btn { right: 2.5vmin; }
@@ -146,8 +147,9 @@
             font-weight: 700;
         }
 
+        /* Adaptive Typography recalibrated for 30% smaller title */
         h1 { 
-            font-size: 11.2vw !important; 
+            font-size: 11.2vmin !important; 
             line-height: 0.9 !important; 
             margin: 0 !important;
             flex-shrink: 0;
@@ -156,15 +158,15 @@
         }
 
         h2 { 
-            font-size: 8vw !important; 
+            font-size: 10vmin !important; 
             line-height: 1 !important; 
-            margin: 0 !important;
+            margin: 4vmin 0 0 0 !important;
             flex-shrink: 0;
             display: block;
             width: 100%;
         }
 
-        p { font-size: 4vw !important; margin: 0; flex-shrink: 0; }
+        p { font-size: 4.5vmin !important; margin: 0; flex-shrink: 0; }
 
         .advice-list {
             text-align: center;
@@ -175,7 +177,7 @@
         }
 
         .advice-item {
-            font-size: 3.8vmin;
+            font-size: 3.5vmin;
             line-height: 1.2;
         }
 
@@ -189,29 +191,31 @@
 
         .progress-container {
             width: 100%;
-            height: 2.5vmin;
+            height: 3vmin;
             background: rgba(255,255,255,0.1);
             border-radius: 1.5vmin;
             overflow: hidden;
             margin-bottom: 2vmin;
+            flex-shrink: 0;
         }
 
-        .choice-btn-icon { font-size: 13vmin; line-height: 1; }
+        .choice-btn-icon { font-size: 14vmin; line-height: 1; }
         .choice-btn-text { font-size: 5vmin; line-height: 1.1; }
 
         .grid-choices {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 5vmin;
+            gap: 4vmin;
             width: 100%;
-            max-width: 150vmin;
+            max-width: 140vmin;
             flex-shrink: 1;
         }
 
         .choice-btn {
-            padding: 4vmin;
+            padding: 3vmin;
             border-radius: 5vmin;
-            height: 45vmin;
+            height: 42vmin;
+            max-height: 45vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -255,13 +259,13 @@
                 <h1 class="cinzel shiny-gold-text uppercase font-black">A SMARTER ME!</h1>
                 <p class="text-cyan-200 font-bold uppercase tracking-widest mt-2">Find your special heart!</p>
             </div>
-            <button id="start-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-14 py-5 rounded-full text-[6vmin] cinzel uppercase font-black text-white shadow-2xl transition-transform active:scale-90 hover:brightness-110">Play Game</button>
+            <button id="start-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-14 py-4 rounded-full text-[6vmin] cinzel uppercase font-black text-white shadow-2xl transition-transform active:scale-90 hover:brightness-110">Play Game</button>
         </div>
     </div>
 
     <div id="question-screen" class="screen">
         <div class="content-wrap">
-            <div class="w-full max-w-[150vmin]">
+            <div class="w-full max-w-[140vmin]">
                 <div class="progress-container">
                     <div id="progress-inner" class="h-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-500" style="width: 0%"></div>
                 </div>
@@ -304,14 +308,14 @@
                     </g>
                 </svg>
             </div>
-            <h1 id="result-title" class="cinzel shiny-gold-text uppercase font-black text-center" style="font-size: 6.4vw !important;"></h1>
+            <h1 id="result-title" class="cinzel shiny-gold-text uppercase font-black text-center" style="font-size: 5.6vmin !important;"></h1>
             
             <div class="w-full max-w-[140vmin]">
                 <div class="advice-scroll">
                     <div id="result-advice-container" class="advice-list text-cyan-200 font-medium italic opacity-90"></div>
                 </div>
             </div>
-            <button id="replay-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-16 py-5 rounded-full text-[5vmin] cinzel uppercase font-black text-white shadow-2xl transition-transform active:scale-95 hover:brightness-110 mt-2">Play Again</button>
+            <button id="replay-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-14 py-4 rounded-full text-[5vmin] cinzel uppercase font-black text-white shadow-2xl transition-transform active:scale-95 hover:brightness-110 mt-2">Play Again</button>
         </div>
     </div>
 
@@ -485,7 +489,6 @@
                     growthAdviceList.forEach((text, index) => {
                         const p = document.createElement('p');
                         p.className = 'advice-item';
-                        // Prepend number if there's more than one advice item
                         p.textContent = (growthAdviceList.length > 1 ? (index + 1) + ". " : "") + text;
                         adviceContainer.appendChild(p);
                     });
