@@ -146,9 +146,8 @@
             font-weight: 700;
         }
 
-        /* RECALIBRATED H1: 20% smaller than previous 11.2vw */
         h1 { 
-            font-size: 8.96vw !important; 
+            font-size: 11.2vw !important; 
             line-height: 0.9 !important; 
             margin: 0 !important;
             flex-shrink: 0;
@@ -305,7 +304,6 @@
                     </g>
                 </svg>
             </div>
-            <!-- RECALIBRATED RESULT H1: 20% smaller than previous 8vw -->
             <h1 id="result-title" class="cinzel shiny-gold-text uppercase font-black text-center" style="font-size: 6.4vw !important;"></h1>
             
             <div class="w-full max-w-[140vmin]">
@@ -351,8 +349,9 @@
             let growthAdviceList = [], positiveAdviceList = [];
             const canvas = document.getElementById('bg-canvas'), ctx = canvas.getContext('2d');
             let particles = [];
+            
             let idleTimer;
-            const IDLE_LIMIT = 3 * 60 * 1000;
+            const IDLE_LIMIT = 3 * 60 * 1000; 
 
             function resetIdleTimer() {
                 clearTimeout(idleTimer);
@@ -363,9 +362,9 @@
                 }, IDLE_LIMIT);
             }
 
-            window.addEventListener('mousedown', resetIdleTimer, true);
-            window.addEventListener('mousemove', resetIdleTimer, true);
-            window.addEventListener('touchstart', resetIdleTimer, true);
+            ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'pointerdown'].forEach(evt => {
+                window.addEventListener(evt, resetIdleTimer, true);
+            });
 
             function resize() {
                 canvas.width = window.innerWidth;
@@ -409,7 +408,7 @@
                 document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
                 document.getElementById(id).classList.add('active');
                 document.getElementById('home-btn').style.display = (id === 'start-screen') ? 'none' : 'flex';
-                resetIdleTimer();
+                resetIdleTimer(); 
             }
 
             function loadQuestion() {
@@ -483,20 +482,21 @@
 
                 adviceContainer.innerHTML = '';
                 if (wrongCount > 0) {
-                    growthAdviceList.forEach(text => {
+                    growthAdviceList.forEach((text, index) => {
                         const p = document.createElement('p');
                         p.className = 'advice-item';
-                        p.textContent = text;
+                        // Prepend number if there's more than one advice item
+                        p.textContent = (growthAdviceList.length > 1 ? (index + 1) + ". " : "") + text;
                         adviceContainer.appendChild(p);
                     });
                 } else {
                     const p = document.createElement('p');
                     p.className = 'advice-item';
-                    p.textContent = positiveAdviceList[Math.floor(Math.random() * positiveAdviceList.length)];
+                    p.textContent = "1. " + positiveAdviceList[Math.floor(Math.random() * positiveAdviceList.length)];
                     adviceContainer.appendChild(p);
                     const p2 = document.createElement('p');
                     p2.className = 'advice-item';
-                    p2.textContent = "You made every choice count today!";
+                    p2.textContent = "2. You made every choice count today!";
                     adviceContainer.appendChild(p2);
                 }
             }
@@ -527,7 +527,7 @@
 
             window.addEventListener('resize', resize);
             resize(); animate();
-            resetIdleTimer();
+            resetIdleTimer(); 
         };
     </script>
 </body>
