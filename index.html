@@ -68,7 +68,7 @@
 
         .lion-container {
             animation: bounce 3s infinite alternate ease-in-out;
-            height: 22vmin;
+            height: 25vmin;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -131,6 +131,378 @@
         .ui-btn svg { width: 5vmin; height: 5vmin; }
         .ui-btn:active { transform: scale(0.9); }
         .home-btn { left: 3vmin; display: none; }
+        .fullscreen-btn { right: 3vmin; }
+
+        .conclusion-prefix {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 6vmin;
+            display: block;
+            margin-bottom: 2vmin;
+            opacity: 1;
+            -webkit-text-fill-color: white;
+            text-transform: none;
+            font-weight: 700;
+        }
+
+        h1 { 
+            font-size: 22vmin; 
+            line-height: 0.9; 
+            margin: 0;
+        }
+
+        h2 { 
+            font-size: 14vmin; 
+            line-height: 1; 
+            margin: 0;
+        }
+
+        p { font-size: 5.5vmin; }
+
+        .advice-list {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5vmin;
+            width: 100%;
+        }
+
+        .advice-item {
+            font-size: 4.5vmin;
+            line-height: 1.3;
+        }
+
+        .advice-scroll {
+            max-height: 32vmin;
+            overflow-y: auto;
+            width: 100%;
+            padding: 1vmin;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 3vmin;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2vmin;
+            overflow: hidden;
+            margin-bottom: 3vmin;
+        }
+
+        .choice-btn-icon { font-size: 15vmin; }
+        .choice-btn-text { font-size: 5.5vmin; }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas" class="bg-canvas-layer"></canvas>
+
+    <button id="home-btn" class="ui-btn home-btn" title="Go to Intro">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+    </button>
+
+    <button id="fs-btn" class="ui-btn fullscreen-btn" title="Full Screen">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+        </svg>
+    </button>
+
+    <div id="start-screen" class="screen active">
+        <div class="content-wrap">
+            <div class="lion-container h-[30vmin]">
+                <svg class="w-full h-full" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="rgba(255, 215, 0, 0.2)" stroke="rgb(255, 215, 0)" stroke-width="2" />
+                    <path d="M50 15L58 38H82L63 52L70 75L50 60L30 75L37 52L18 38H42L50 15Z" fill="rgb(255, 215, 0)" />
+                </svg>
+            </div>
+            <div>
+                <h1 class="cinzel shiny-gold-text uppercase font-black">A SMARTER ME!</h1>
+                <p class="text-cyan-200 font-bold uppercase tracking-widest mt-4">Find your special heart!</p>
+                <button id="start-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-16 py-6 rounded-full text-[7vmin] cinzel uppercase font-black text-white shadow-2xl transition-transform active:scale-90 hover:brightness-110 mt-8">Play Game</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="question-screen" class="screen">
+        <div class="content-wrap">
+            <div class="w-full max-w-[130vmin]">
+                <div class="progress-container">
+                    <div id="progress-inner" class="h-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <h2 id="question-text" class="cinzel text-white font-bold">What do you do?</h2>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-10 w-full max-w-[150vmin]">
+                <button id="btn-a" class="choice-btn choice-btn-unified gold-border p-8 rounded-[6vmin] flex flex-col items-center justify-center space-y-4 h-[50vmin]">
+                    <div id="option-a-icon" class="choice-btn-icon">✨</div>
+                    <span id="option-a-text" class="choice-btn-text font-black uppercase text-white">I help!</span>
+                </button>
+                <button id="btn-b" class="choice-btn choice-btn-unified gold-border p-8 rounded-[6vmin] flex flex-col items-center justify-center space-y-4 h-[50vmin]">
+                    <div id="option-b-icon" class="choice-btn-icon">🌟</div>
+                    <span id="option-b-text" class="choice-btn-text font-black uppercase text-white">I wait.</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="result-screen" class="screen">
+        <div class="content-wrap">
+            <div class="lion-container h-[35vmin]">
+                <svg id="result-svg" class="w-full h-full" viewBox="0 0 200 200">
+                    <circle cx="100" cy="100" r="80" fill="url(#auraGrad)" opacity="0.6" />
+                    <defs>
+                        <radialGradient id="auraGrad"><stop offset="0%" stop-color="rgb(255, 215, 0)" /><stop offset="100%" stop-color="transparent" /></radialGradient>
+                    </defs>
+                    <path id="svg-cape" d="M30 70 Q100 20 170 70 L190 190 Q100 160 10 190 Z" fill="rgb(233, 30, 99)" />
+                    <circle id="svg-mane" cx="100" cy="100" r="65" fill="#ff9800" />
+                    <circle id="svg-mane-inner" cx="100" cy="100" r="55" fill="#ffeb3b" />
+                    <ellipse cx="100" cy="110" rx="45" ry="50" fill="#ffe0b2" />
+                    <circle cx="82" cy="100" r="7" fill="rgb(26, 26, 46)" />
+                    <circle cx="118" cy="100" r="7" fill="rgb(26, 26, 46)" />
+                    <path d="M92 120 L108 120 L100 128 Z" fill="rgb(93, 64, 55)" />
+                    <g id="accessory-group">
+                        <path id="svg-hat" d="M60 60 L75 30 L100 50 L125 30 L140 60 Z" fill="rgb(255, 215, 0)" stroke="rgb(255, 143, 0)" stroke-width="3"/>
+                        <circle id="dot-1" cx="60" cy="60" r="5" fill="rgb(244, 67, 54)" />
+                        <circle id="dot-2" cx="100" cy="50" r="5" fill="rgb(33, 150, 243)" />
+                        <circle id="dot-3" cx="140" cy="60" r="5" fill="rgb(76, 175, 80)" />
+                    </g>
+                </svg>
+            </div>
+            <h1 id="result-title" class="cinzel shiny-gold-text uppercase font-black text-center"></h1>
+            
+            <div class="w-full max-w-[140vmin] space-y-6">
+                <div class="advice-scroll">
+                    <div id="result-advice-container" class="advice-list text-cyan-200 font-medium italic opacity-90"></div>
+                </div>
+                <button id="replay-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-16 py-6 rounded-full text-[6vmin] cinzel uppercase font-black text-white shadow-2xl transition-transform active:scale-95 hover:brightness-110 mt-4">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const adventureBank = [
+                { q: "Trash is on the floor!", a: { text: "Pick it up", icon: "🗑️", advice: "Picking up trash makes our home happy!" }, b: { text: "Walk away", icon: "🚶", advice: "Try to pick up trash next time to help!" } },
+                { q: "A friend is crying.", a: { text: "Help them", icon: "❤️", advice: "Helping a sad friend is very kind!" }, b: { text: "Walk away", icon: "👣", advice: "Try to give a hug to a sad friend next time!" } },
+                { q: "Finished playing toys?", a: { text: "Clean up", icon: "🧸", advice: "Cleaning up toys is what smart heroes do!" }, b: { text: "Leave a mess", icon: "🌪️", advice: "Always put toys away to keep them safe!" } },
+                { q: "You have a yummy snack.", a: { text: "Share half", icon: "🍪", advice: "Sharing snacks is the best way to have fun!" }, b: { text: "Eat it all", icon: "🙊", advice: "Try to share your snacks next time!" } },
+                { q: "You feel very mad!", a: { text: "Deep breaths", icon: "🌬️", advice: "Slow breaths help you stay calm and wise!" }, b: { text: "Scream loud", icon: "📢", advice: "Try counting to five when you feel mad!" } },
+                { q: "A friend wants a toy.", a: { text: "Let them play", icon: "🤝", advice: "Sharing your toys makes you a great friend!" }, b: { text: "Say No!", icon: "🤚", advice: "Sharing feels better than playing alone!" } },
+                { q: "A plant is thirsty.", a: { text: "Give water", icon: "💧", advice: "Giving plants water helps them grow big!" }, b: { text: "Pull leaves", icon: "🥀", advice: "Be soft and gentle with plants next time!" } },
+                { q: "You broke a toy!", a: { text: "Tell the truth", icon: "🙏", advice: "Telling the truth is very brave of you!" }, b: { text: "Hide it", icon: "👉", advice: "It's okay to make mistakes; just be honest!" } },
+                { q: "It is time for bed.", a: { text: "Brush teeth", icon: "🪥", advice: "Brushing your teeth makes them strong!" }, b: { text: "Just sleep", icon: "😴", advice: "Brush every night to keep your smile bright!" } },
+                { q: "Lunch is ready!", a: { text: "Wash hands", icon: "🧼", advice: "Washing hands keeps the germs away!" }, b: { text: "Eat now", icon: "🍔", advice: "Always wash your hands before you eat!" } },
+                { q: "Near a busy road!", a: { text: "Hold a hand", icon: "🤝", advice: "Holding hands keeps you safe near cars!" }, b: { text: "Run fast", icon: "🚀", advice: "Always hold an adult's hand near the road!" } },
+                { q: "In the car!", a: { text: "Click belt", icon: "🔒", advice: "Buckling up is what smart travelers do!" }, b: { text: "No belt", icon: "🚗", advice: "Wear your seatbelt every time to be safe!" } },
+                { q: "The stove is hot!", a: { text: "Stay away", icon: "🙅", advice: "Staying away from heat keeps you safe!" }, b: { text: "Touch it", icon: "🔥", advice: "Never touch the stove; it can hurt you!" } },
+                { q: "You want a ball.", a: { text: "Say Please", icon: "😇", advice: "Kind words make people happy to help!" }, b: { text: "Just grab", icon: "😤", advice: "Using polite words is very smart!" } },
+                { q: "Kids are on the slide.", a: { text: "Wait turn", icon: "🧍", advice: "Waiting for your turn is fair and nice!" }, b: { text: "Push in", icon: "🏎️", advice: "Taking turns makes playing more fun!" } },
+                { q: "A friend fell down.", a: { text: "Ask if okay", icon: "🫂", advice: "Helping a friend shows you have a big heart!" }, b: { text: "Laugh", icon: "🤭", advice: "Be kind when others fall; they might be hurt!" } },
+                { q: "Shirt is dirty.", a: { text: "Put in bin", icon: "🧺", advice: "Putting laundry away helps keep things tidy!" }, b: { text: "On the floor", icon: "👕", advice: "Put your dirty clothes in the bin next time!" } },
+                { q: "Dad has heavy bags.", a: { text: "Help carry", icon: "💪", advice: "Helping your family makes you a hero!" }, b: { text: "Say no", icon: "😴", advice: "Even carrying one small bag is a big help!" } },
+                { q: "Brushing your teeth.", a: { text: "Off water", icon: "🚱", advice: "Saving water helps the whole world!" }, b: { text: "Let it run", icon: "💧", advice: "Turn off the water while you brush!" } },
+                { q: "A sneeze is coming!", a: { text: "Use tissue", icon: "🤧", advice: "Using a tissue keeps everyone healthy!" }, b: { text: "Sneeze hand", icon: "🌬️", advice: "Sneeze into your elbow next time!" } }
+            ];
+
+            const resultCategories = {
+                high: ["A HELPFUL LEADER!", "A KIND FRIEND!", "A THOUGHTFUL HERO!", "A CARING TEAMMATE!", "A GENEROUS PARTNER!", "A WISE ROLE MODEL!"],
+                medium: ["A BRAVE TRYER!", "A STEADY HELPER!", "A GOOD STUDENT!", "A GROWING FRIEND!"]
+            };
+
+            let activeQuestions = [], currentQuestion = 0, scoreA = 0;
+            let growthAdviceList = [], positiveAdviceList = [];
+            const canvas = document.getElementById('bg-canvas'), ctx = canvas.getContext('2d');
+            let particles = [];
+            let idleTimer;
+            const IDLE_LIMIT = 3 * 60 * 1000;
+
+            function resetIdleTimer() {
+                clearTimeout(idleTimer);
+                idleTimer = setTimeout(() => {
+                    if (!document.getElementById('start-screen').classList.contains('active')) {
+                        showScreen('start-screen');
+                    }
+                }, IDLE_LIMIT);
+            }
+
+            window.addEventListener('mousedown', resetIdleTimer, true);
+            window.addEventListener('mousemove', resetIdleTimer, true);
+            window.addEventListener('touchstart', resetIdleTimer, true);
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                initParticles();
+            }
+
+            class Particle {
+                constructor() { this.reset(); }
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 0.8 + 0.2;
+                    this.speedX = (Math.random() - 0.5) * 1.5;
+                    this.speedY = (Math.random() - 0.5) * 1.5;
+                    this.opacity = Math.random();
+                    this.color = ['#ffd700', '#daa520', '#fffacd', '#ffffff'][Math.floor(Math.random() * 4)];
+                }
+                update() {
+                    this.x += this.speedX; this.y += this.speedY;
+                    if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+                }
+                draw() {
+                    ctx.fillStyle = this.color; ctx.globalAlpha = this.opacity * 0.45;
+                    ctx.beginPath(); ctx.arc(this.x, this.y, this.size * window.innerWidth / 100, 0, Math.PI * 2); ctx.fill();
+                }
+            }
+
+            function initParticles() {
+                particles = [];
+                const count = 80;
+                for (let i = 0; i < count; i++) particles.push(new Particle());
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => { p.update(); p.draw(); });
+                requestAnimationFrame(animate);
+            }
+
+            function showScreen(id) {
+                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+                document.getElementById(id).classList.add('active');
+                document.getElementById('home-btn').style.display = (id === 'start-screen') ? 'none' : 'flex';
+                resetIdleTimer();
+            }
+
+            function loadQuestion() {
+                const data = activeQuestions[currentQuestion];
+                document.getElementById('question-text').innerText = data.q;
+                const isSwapped = Math.random() > 0.5;
+                const opt1 = isSwapped ? data.b : data.a, opt2 = isSwapped ? data.a : data.b;
+                const btnA = document.getElementById('btn-a'), btnB = document.getElementById('btn-b');
+
+                document.getElementById('option-a-text').innerText = opt1.text;
+                document.getElementById('option-a-icon').innerText = opt1.icon;
+                btnA.setAttribute('data-type', isSwapped ? 'B' : 'A');
+                btnA.setAttribute('data-advice', opt1.advice);
+
+                document.getElementById('option-b-text').innerText = opt2.text;
+                document.getElementById('option-b-icon').innerText = opt2.icon;
+                btnB.setAttribute('data-type', isSwapped ? 'A' : 'B');
+                btnB.setAttribute('data-advice', opt2.advice);
+
+                document.getElementById('progress-inner').style.width = `${(currentQuestion / activeQuestions.length) * 100}%`;
+            }
+
+            function startGame() {
+                activeQuestions = [...adventureBank].sort(() => Math.random() - 0.5).slice(0, 5);
+                currentQuestion = 0; scoreA = 0; growthAdviceList = []; positiveAdviceList = [];
+                showScreen('question-screen');
+                loadQuestion();
+            }
+
+            function handleChoice(elementId) {
+                const btn = document.getElementById(elementId);
+                const type = btn.getAttribute('data-type'), advice = btn.getAttribute('data-advice');
+                if (type === 'A') { scoreA++; positiveAdviceList.push(advice); }
+                else growthAdviceList.push(advice);
+                createExplosion();
+                currentQuestion++;
+                if (currentQuestion < activeQuestions.length) setTimeout(loadQuestion, 200);
+                else showResult();
+            }
+
+            function showResult() {
+                showScreen('result-screen');
+                const titleEl = document.getElementById('result-title');
+                const adviceContainer = document.getElementById('result-advice-container');
+                const hat = document.getElementById('svg-hat'), cape = document.getElementById('svg-cape');
+                const dots = [document.getElementById('dot-1'), document.getElementById('dot-2'), document.getElementById('dot-3')];
+                const wrongCount = growthAdviceList.length;
+
+                if (wrongCount >= 2) {
+                    titleEl.innerHTML = '<span class="conclusion-prefix">You must learn</span>THE FOLLOWING:';
+                    hat.setAttribute('d', 'M50 65 L60 55 Q100 35 140 55 L150 65 Q100 75 50 65');
+                    hat.setAttribute('fill', 'rgb(180, 180, 180)');
+                    dots.forEach(d => d.style.display = 'none');
+                    cape.setAttribute('fill', 'rgb(75, 0, 130)');
+                } else {
+                    let cat = (scoreA >= 4) ? "high" : "medium";
+                    const list = resultCategories[cat];
+                    titleEl.innerHTML = '<span class="conclusion-prefix">You are</span>' + list[Math.floor(Math.random() * list.length)];
+                    if (cat === "high") {
+                        hat.setAttribute('d', 'M60 60 L75 30 L100 50 L125 30 L140 60 Z');
+                        hat.setAttribute('fill', 'rgb(255,215,0)');
+                        dots.forEach(d => d.style.display = 'block');
+                        cape.setAttribute('fill', 'rgb(233, 30, 99)');
+                    } else {
+                        hat.setAttribute('d', 'M50 65 L60 55 Q100 35 140 55 L150 65 Q100 75 50 65');
+                        hat.setAttribute('fill', 'rgb(215, 196, 158)');
+                        dots.forEach(d => d.style.display = 'none');
+                        cape.setAttribute('fill', 'rgb(33, 150, 243)');
+                    }
+                }
+
+                adviceContainer.innerHTML = '';
+                if (wrongCount > 0) {
+                    growthAdviceList.forEach(text => {
+                        const p = document.createElement('p');
+                        p.className = 'advice-item';
+                        p.textContent = text;
+                        adviceContainer.appendChild(p);
+                    });
+                } else {
+                    const p = document.createElement('p');
+                    p.className = 'advice-item';
+                    p.textContent = positiveAdviceList[Math.floor(Math.random() * positiveAdviceList.length)];
+                    adviceContainer.appendChild(p);
+                    const p2 = document.createElement('p');
+                    p2.className = 'advice-item';
+                    p2.textContent = "You made every choice count today!";
+                    adviceContainer.appendChild(p2);
+                }
+            }
+
+            function createExplosion() {
+                for (let i = 0; i < 30; i++) {
+                    const p = document.createElement('div');
+                    p.className = 'particle';
+                    p.style.left = '50%'; p.style.top = '50%';
+                    p.style.width = '2.5vmin'; 
+                    p.style.height = '2.5vmin';
+                    p.style.background = ['#FFD700', '#DAA520', '#FFFFFF'][Math.floor(Math.random()*3)];
+                    const angle = Math.random()*Math.PI*2, dist = Math.random()*35 + 10;
+                    p.animate([{transform:'translate(0,0)', opacity:1}, {transform:`translate(${Math.cos(angle)*dist}vmin, ${Math.sin(angle)*dist}vmin)`, opacity:0}], {duration:800}).onfinish = () => p.remove();
+                    document.body.appendChild(p);
+                }
+            }
+
+            document.getElementById('start-btn').onclick = startGame;
+            document.getElementById('btn-a').onclick = () => handleChoice('btn-a');
+            document.getElementById('btn-b').onclick = () => handleChoice('btn-b');
+            document.getElementById('replay-btn').onclick = () => showScreen('start-screen');
+            document.getElementById('home-btn').onclick = () => showScreen('start-screen');
+            document.getElementById('fs-btn').onclick = () => {
+                if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
+                else document.exitFullscreen();
+            };
+
+            window.addEventListener('resize', resize);
+            resize(); animate();
+            resetIdleTimer();
+        };
+    </script>
+</body>
+</html>
+
         .fullscreen-btn { right: 3vmin; }
 
         .conclusion-prefix {
