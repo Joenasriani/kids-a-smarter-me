@@ -147,7 +147,6 @@
             font-weight: 700;
         }
 
-        /* Adaptive Typography recalibrated for 30% smaller title */
         h1 { 
             font-size: 11.2vmin !important; 
             line-height: 0.9 !important; 
@@ -199,7 +198,8 @@
             flex-shrink: 0;
         }
 
-        .choice-btn-icon { font-size: 14vmin; line-height: 1; }
+        .choice-btn-icon { font-size: 14vmin; line-height: 1; display: flex; align-items: center; justify-content: center; }
+        .choice-btn-icon img { width: 14vmin; height: 14vmin; object-fit: contain; }
         .choice-btn-text { font-size: 5vmin; line-height: 1.1; }
 
         .grid-choices {
@@ -257,7 +257,7 @@
             </div>
             <div class="w-full">
                 <h1 class="cinzel shiny-gold-text uppercase font-black">A SMARTER ME!</h1>
-                <p class="text-cyan-200 font-bold uppercase tracking-widest mt-2">Find your special heart!</p>
+                <p class="text-cyan-200 font-bold uppercase tracking-widest mt-2">Find Your Special Heart!</p>
             </div>
             <button id="start-btn" class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 gold-border px-14 py-4 rounded-full text-[6vmin] cinzel uppercase font-black text-white shadow-2xl transition-transform active:scale-90 hover:brightness-110">Play Game</button>
         </div>
@@ -323,7 +323,7 @@
         window.onload = function() {
             const adventureBank = [
                 { q: "Trash is on the floor!", a: { text: "Pick it up", icon: "🗑️", advice: "Picking up trash makes our home happy!" }, b: { text: "Walk away", icon: "🚶", advice: "Try to pick up trash next time to help!" } },
-                { q: "A friend is crying.", a: { text: "Help them", icon: "❤️", advice: "Helping a sad friend is very kind!" }, b: { text: "Walk away", icon: "👣", advice: "Try to give a hug to a sad friend next time!" } },
+                { q: "A friend is crying.", a: { text: "Help them", icon: "❤️", advice: "Helping a sad friend is very kind!" }, b: { text: "Walk away", icon: "👣", advice: "Try to be there for a sad friend next time!" } },
                 { q: "Finished playing toys?", a: { text: "Clean up", icon: "🧸", advice: "Cleaning up toys is what smart heroes do!" }, b: { text: "Leave a mess", icon: "🌪️", advice: "Always put toys away to keep them safe!" } },
                 { q: "You have a yummy snack.", a: { text: "Share half", icon: "🍪", advice: "Sharing snacks is the best way to have fun!" }, b: { text: "Eat it all", icon: "🙊", advice: "Try to share your snacks next time!" } },
                 { q: "You feel very mad!", a: { text: "Deep breaths", icon: "🌬️", advice: "Slow breaths help you stay calm and wise!" }, b: { text: "Scream loud", icon: "📢", advice: "Try counting to five when you feel mad!" } },
@@ -333,7 +333,7 @@
                 { q: "It is time for bed.", a: { text: "Brush teeth", icon: "🪥", advice: "Brushing your teeth makes them strong!" }, b: { text: "Just sleep", icon: "😴", advice: "Brush every night to keep your smile bright!" } },
                 { q: "Lunch is ready!", a: { text: "Wash hands", icon: "🧼", advice: "Washing hands keeps the germs away!" }, b: { text: "Eat now", icon: "🍔", advice: "Always wash your hands before you eat!" } },
                 { q: "Near a busy road!", a: { text: "Hold a hand", icon: "🤝", advice: "Holding hands keeps you safe near cars!" }, b: { text: "Run fast", icon: "🚀", advice: "Always hold an adult's hand near the road!" } },
-                { q: "In the car!", a: { text: "Click belt", icon: "🔒", advice: "Buckling up is what smart travelers do!" }, b: { text: "No belt", icon: "🚗", advice: "Wear your seatbelt every time to be safe!" } },
+                { q: "In the car!", a: { text: "Click belt", icon: "BELT_IMG", advice: "Buckling up is what smart travelers do!" }, b: { text: "No belt", icon: "🚗", advice: "Wear your seatbelt every time to be safe!" } },
                 { q: "The stove is hot!", a: { text: "Stay away", icon: "🙅", advice: "Staying away from heat keeps you safe!" }, b: { text: "Touch it", icon: "🔥", advice: "Never touch the stove; it can hurt you!" } },
                 { q: "You want a ball.", a: { text: "Say Please", icon: "😇", advice: "Kind words make people happy to help!" }, b: { text: "Just grab", icon: "😤", advice: "Using polite words is very smart!" } },
                 { q: "Kids are on the slide.", a: { text: "Wait turn", icon: "🧍", advice: "Waiting for your turn is fair and nice!" }, b: { text: "Push in", icon: "🏎️", advice: "Taking turns makes playing more fun!" } },
@@ -343,6 +343,14 @@
                 { q: "Brushing your teeth.", a: { text: "Off water", icon: "🚱", advice: "Saving water helps the whole world!" }, b: { text: "Let it run", icon: "💧", advice: "Turn off the water while you brush!" } },
                 { q: "A sneeze is coming!", a: { text: "Use tissue", icon: "🤧", advice: "Using a tissue keeps everyone healthy!" }, b: { text: "Sneeze hand", icon: "🌬️", advice: "Sneeze into your elbow next time!" } }
             ];
+
+            function setIconContent(element, iconCode) {
+                if (iconCode === "BELT_IMG") {
+                    element.innerHTML = '<img src="emojis.com belt.png" alt="belt">';
+                } else {
+                    element.innerText = iconCode;
+                }
+            }
 
             const resultCategories = {
                 high: ["A HELPFUL LEADER!", "A KIND FRIEND!", "A THOUGHTFUL HERO!", "A CARING TEAMMATE!", "A GENEROUS PARTNER!", "A WISE ROLE MODEL!"],
@@ -423,12 +431,12 @@
                 const btnA = document.getElementById('btn-a'), btnB = document.getElementById('btn-b');
 
                 document.getElementById('option-a-text').innerText = opt1.text;
-                document.getElementById('option-a-icon').innerText = opt1.icon;
+                setIconContent(document.getElementById('option-a-icon'), opt1.icon);
                 btnA.setAttribute('data-type', isSwapped ? 'B' : 'A');
                 btnA.setAttribute('data-advice', opt1.advice);
 
                 document.getElementById('option-b-text').innerText = opt2.text;
-                document.getElementById('option-b-icon').innerText = opt2.icon;
+                setIconContent(document.getElementById('option-b-icon'), opt2.icon);
                 btnB.setAttribute('data-type', isSwapped ? 'A' : 'B');
                 btnB.setAttribute('data-advice', opt2.advice);
 
