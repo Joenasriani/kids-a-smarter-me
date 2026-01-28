@@ -469,31 +469,16 @@
                 const dots = [document.getElementById('dot-1'), document.getElementById('dot-2'), document.getElementById('dot-3')];
                 const wrongCount = growthAdviceList.length;
 
-                if (wrongCount >= 2) {
+                adviceContainer.innerHTML = '';
+
+                if (wrongCount > 0) {
+                    // Logic for Wrong Answers: Only show advice for those items
                     titleEl.innerHTML = '<span class="conclusion-prefix">You must learn</span>THE FOLLOWING:';
                     hat.setAttribute('d', 'M50 65 L60 55 Q100 35 140 55 L150 65 Q100 75 50 65');
                     hat.setAttribute('fill', 'rgb(180, 180, 180)');
                     dots.forEach(d => d.style.display = 'none');
                     cape.setAttribute('fill', 'rgb(75, 0, 130)');
-                } else {
-                    let cat = (scoreA >= 4) ? "high" : "medium";
-                    const list = resultCategories[cat];
-                    titleEl.innerHTML = '<span class="conclusion-prefix">You are</span>' + list[Math.floor(Math.random() * list.length)];
-                    if (cat === "high") {
-                        hat.setAttribute('d', 'M60 60 L75 30 L100 50 L125 30 L140 60 Z');
-                        hat.setAttribute('fill', 'rgb(255,215,0)');
-                        dots.forEach(d => d.style.display = 'block');
-                        cape.setAttribute('fill', 'rgb(233, 30, 99)');
-                    } else {
-                        hat.setAttribute('d', 'M50 65 L60 55 Q100 35 140 55 L150 65 Q100 75 50 65');
-                        hat.setAttribute('fill', 'rgb(33, 150, 243)');
-                        dots.forEach(d => d.style.display = 'none');
-                        cape.setAttribute('fill', 'rgb(33, 150, 243)');
-                    }
-                }
 
-                adviceContainer.innerHTML = '';
-                if (wrongCount > 0) {
                     growthAdviceList.forEach((text, index) => {
                         const p = document.createElement('p');
                         p.className = 'advice-item';
@@ -501,14 +486,19 @@
                         adviceContainer.appendChild(p);
                     });
                 } else {
+                    // Logic for PERFECT Score: Congratulate the user
+                    const list = resultCategories.high;
+                    titleEl.innerHTML = '<span class="conclusion-prefix">You are</span>' + list[Math.floor(Math.random() * list.length)];
+                    
+                    hat.setAttribute('d', 'M60 60 L75 30 L100 50 L125 30 L140 60 Z');
+                    hat.setAttribute('fill', 'rgb(255,215,0)');
+                    dots.forEach(d => d.style.display = 'block');
+                    cape.setAttribute('fill', 'rgb(233, 30, 99)');
+
                     const p = document.createElement('p');
-                    p.className = 'advice-item';
-                    p.textContent = "1. " + positiveAdviceList[Math.floor(Math.random() * positiveAdviceList.length)];
+                    p.className = 'advice-item text-[6vmin] font-bold';
+                    p.textContent = "🌟 PERFECT! YOU GOT EVERYTHING RIGHT! 🌟";
                     adviceContainer.appendChild(p);
-                    const p2 = document.createElement('p');
-                    p2.className = 'advice-item';
-                    p2.textContent = "2. You made every choice count today!";
-                    adviceContainer.appendChild(p2);
                 }
             }
 
