@@ -1,0 +1,10 @@
+# A SMARTER ME!
+
+Canonical play URL: https://kids-crown-of-greatness.vercel.app/
+Repository: https://github.com/Joenasriani/kids-a-smarter-me
+
+A SMARTER ME! is a five-scenario prosocial, routine and safety choice game developed as part of a multi-game interactive children’s edutainment activation in the UAE.
+
+Each run randomly samples five scenarios from a 20-scenario bank. Each scenario presents two choices in randomized screen positions. The source marks one choice as preferred; non-preferred choices add scenario-specific advice to the result screen. A perfect run receives one random positive role label.
+
+The implementation is not a validated measure of intelligence, personality, morality, social development or psychological traits.

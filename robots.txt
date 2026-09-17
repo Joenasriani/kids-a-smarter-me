@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kids-crown-of-greatness.vercel.app/sitemap.xml
