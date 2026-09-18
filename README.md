@@ -2,35 +2,30 @@
 
 Play: https://kids-crown-of-greatness.vercel.app/
 
-A SMARTER ME! is a five-scenario prosocial, routine and safety choice game developed as part of a multi-game interactive children’s edutainment activation in the UAE.
+A SMARTER ME! is a five-scenario prosocial, routine and safety choice game.
 
-## Game structure
+## How it plays
 
-Each run randomly selects five scenarios from a built-in bank of 20. Every scenario presents two choices; their left/right positions are randomized before display.
+Each run randomly selects five scenarios from a built-in bank of 20. Every scenario presents two choices; their left/right positions are randomized.
 
-**scenario → two choices → record preferred/non-preferred source label → repeat for five scenarios → show advice or perfect-run role label**
+**scenario → two choices → record response → repeat for five scenarios → show advice or a perfect-run role label**
 
-The source marks one response in each scenario as the preferred `A` choice. Selecting that response increments the run’s preferred-choice count. Selecting the other response stores its associated advice for the result screen.
+One response in each scenario is marked as the preferred game choice. Selecting the alternative stores its associated advice for the result screen. A run with all five preferred responses receives one randomly selected positive role label.
 
-If one or more non-preferred choices are selected, the result screen lists only the associated advice for those scenarios. If all five preferred choices are selected, the game displays one random positive role label from its built-in result list.
-
-## Topics represented
+## Topics
 
 The scenario bank includes helping others, sharing, tidying, honesty, calming down, brushing teeth, handwashing, road safety, seatbelts, stove safety, polite requests, taking turns, responding when someone falls, laundry, helping family members, saving water and sneeze hygiene.
 
-## Activation context
+## Content note
 
-This game belongs to the same `kids-*` game set developed for the multi-game interactive children’s edutainment activation in the UAE.
+The title is thematic. The result labels are game feedback, not measures of intelligence, personality, morality or psychological traits.
 
-## Interpretation boundary
+## Implementation
 
-Despite the title **A SMARTER ME!**, the implementation does not measure intelligence. Its result labels are game feedback derived from five scenario choices, not validated measures of intelligence, personality, morality, social development or psychological traits.
+The game is contained in `index.html`; `emojis.com belt.png` is used by the seatbelt scenario.
 
-The repository contains no study measuring knowledge retention, behavior change or transfer outside the game.
+## Event activation
 
-## Repository scope
+This game was developed as one module in a multi-game interactive children’s edutainment activation in the UAE.
 
-- `index.html` — complete playable game
-- `emojis.com belt.png` — seatbelt image used by one scenario
-
-Both files are preserved as game assets. Documentation and discovery files must not alter the scenario bank, preferred-choice labels, random selection, result logic, advice text, controls, visuals, image asset or runtime behavior.
+Event production: [Peach Society](https://peach-society.com/) — Dubai-based event and experiential production company.
